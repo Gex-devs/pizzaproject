@@ -1,15 +1,18 @@
-function pollData() {
-    setInterval(function() {
-      fetch('/data')
-        .then(response => response.json())
-        .then(data => {
-          // Update the UI with the new data
-          console.log(data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }, 5000); // Poll every 5 seconds
-}
 
-pollData()
+var socket = io.connect('http://127.0.0.1:5000/');
+
+socket.on('connect', function() {
+  console.log('Connected!');
+});
+
+socket.on('update',function(value){
+  console.log("got it")
+  let textvalue = document.createElement("p")
+  textvalue.innerHTML = value
+
+  document.getElementById("empty_list").appendChild(textvalue)
+})
+
+socket.on('new_data', function(data) {
+  console.log(data);
+});
