@@ -18,7 +18,7 @@ socketio = SocketIO(app,cors_allowed_origins='*')
 CORS(app=app)
 
 # Mongo DB config
-client = MongoClient('localhost', 27017)
+client = MongoClient('145.93.113.135', 27017)
 
 db = client['testDB']
 collection = db['testCol']

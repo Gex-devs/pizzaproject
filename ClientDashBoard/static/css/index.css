@@ -1,0 +1,33 @@
+.foodCatag{
+    display: flex;
+    flex: content;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+    position: relative;     
+    margin-top: 5cm;
+    margin-left: 5cm;
+    width: 22cm;
+    height: 2cm;
+}
+.sampleCatag{
+    position: relative;
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
+    border-radius: 5px;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    width: 3cm;
+    height: 1cm;
+}
+.texts{
+    padding-top: -1cm;
+    color: rgb(238, 238, 238);
+}
+
+.FoodMenu{
+    display: flex;
+    flex-direction: column;
+
+}

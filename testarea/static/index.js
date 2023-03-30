@@ -9,7 +9,6 @@ socket.on('update',function(value){
   console.log("got it")
   let textvalue = document.createElement("p")
   textvalue.innerHTML = value
-
   document.getElementById("empty_list").appendChild(textvalue)
 })
 
