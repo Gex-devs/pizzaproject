@@ -1,33 +1,57 @@
-.foodCatag{
-    display: flex;
-    flex: content;
-    flex-direction: row;
-    justify-content: space-between;
-    justify-items: center;
-    position: relative;     
-    margin-top: 5cm;
-    margin-left: 5cm;
-    width: 22cm;
-    height: 2cm;
+.foodCatag {
+  display: flex;
+  flex: content;
+  flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+  position: relative;
+  margin-top: 5cm;
+  margin-left: 5cm;
+  width: 22cm;
+  height: 2cm;
 }
-.sampleCatag{
-    position: relative;
-    margin-left: 0.5cm;
-    margin-right: 0.5cm;
-    border-radius: 5px;
-    background-color: black;
-    display: flex;
-    flex-direction: row;
-    width: 3cm;
-    height: 1cm;
+.sampleCatag {
+  position: relative;
+  margin-left: 0.5cm;
+  margin-right: 0.5cm;
+  border-radius: 5px;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  width: 3cm;
+  height: 1cm;
 }
-.texts{
-    padding-top: -1cm;
-    color: rgb(238, 238, 238);
+.FoodMenuButton {
+  position: relative;
+  width: 4cm;
+  height: 4cm;
+  background: #19191b;
+  border-radius: 6px;
 }
 
-.FoodMenu{
-    display: flex;
-    flex-direction: column;
+.FoodMenu {
+  position: relative;
+  margin-left: 5.4cm;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 14cm;
+  height: 5cm;
+}
+.ChosenItems {
+  position: absolute;
+  width: 186px;
+  height: 312px;
+  left: 658px;
+  top: 93px;
 
+  background: #19191b;
+  border-radius: 6px;
+}
+.texts {
+  padding-top: -1cm;
+  color: rgb(238, 238, 238);
+}
+.price {
+  color: rgb(238, 238, 238);
 }
