@@ -1,3 +1,7 @@
+:root {
+  overflow: hidden;
+  user-select: none;
+}
 .foodCatag {
   display: flex;
   flex: content;
@@ -36,17 +40,18 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   width: 14cm;
-  height: 5cm;
+  height: 5cm; 
 }
 .ChosenItems {
-  position: absolute;
+  position: relative;
+  margin-left: 22cm;
+  display: flex;
+  width: 14cm;
+  height: 5cm;
   width: 186px;
   height: 312px;
-  left: 658px;
-  top: 93px;
-
-  background: #19191b;
   border-radius: 6px;
+  background-color: #19191b;
 }
 .texts {
   padding-top: -1cm;

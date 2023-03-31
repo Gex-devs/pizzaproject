@@ -18,14 +18,16 @@ socketio = SocketIO(app,cors_allowed_origins='*')
 CORS(app=app)
 
 # Mongo DB config
-client = MongoClient('145.93.113.135', 27017)
+client = MongoClient(os.getenv("MONGODB_ADDRESS"), 27017)
 
 db = client['testDB']
+
 collection = db['testCol']
+
+pendingOrdersCol = db['PendingOrders']
 
 change_stream = collection.watch()
 
-last_timestamp = time.time()
 
 
 @socketio.on('connect')
@@ -36,9 +38,13 @@ def clientConnected():
 
 @app.route("/")
 def page():
-
     return render_template('index.html')
 
+
+@app.route("/AddOrder")
+def page():
+    pendingOrdersCol.insert_one({'id':1,"item":"pizza"})
+    return "200"
 
 @app.route("/testendpoint/<value>")
 def test(value):
@@ -50,7 +56,6 @@ def test(value):
 # MongoDB Thread
 def MongoDBlistner():
     for event in change_stream:
-        print(event)
         print(event["fullDocument"]["name"])
         socketio.emit('update', event["fullDocument"]["name"])
 
