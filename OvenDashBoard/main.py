@@ -1,10 +1,12 @@
-from flask import Flask, render_template,jsonify
+from bson import ObjectId
+from flask import Flask, render_template,jsonify, request
 import time,os,logging
 from dotenv import load_dotenv
 from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from flask_cors import CORS
 import threading
+from processors import *
 
 # load local env
 load_dotenv()
@@ -20,13 +22,13 @@ CORS(app=app)
 # Mongo DB config
 client = MongoClient(os.getenv("MONGODB_ADDRESS"), 27017)
 
-db = client['testDB']
+db = client['pizzahouse']
 
-collection = db['testCol']
+pendingOrderCol = db['pendingOrder']
+foodMenu = db['foodMenu']
+accounts = db['accounts']
 
-pendingOrdersCol = db['pendingOrders']
-
-change_stream = collection.watch()
+change_stream = pendingOrderCol.watch()
 
 
 
@@ -34,30 +36,37 @@ change_stream = collection.watch()
 def clientConnected():
     print("Client Joined")
 
-
-
+ 
 @app.route("/")
-def page():
+def entry():
     return render_template('index.html')
 
 
-@app.route("/AddOrder")
-def pages():
-    pendingOrdersCol.insert_one({'id':1,"item":"pizza"})
+@app.route("/testendpoint")
+def testendpoint():
+
     return "200"
 
-@app.route("/testendpoint/<value>")
-def test(value):
-    print(value)
-    socketio.emit('update',value)
+@app.route("/AddOrder/<ID>")
+def page(ID):
+    tt = foodMenu.find_one(ObjectId(ID))
+    print(f"Found {(tt)}")
+    pendingOrderCol.insert_one(tt)
     return "200"
+
 
 
 # MongoDB Thread
 def MongoDBlistner():
     for event in change_stream:
-        print(event["fullDocument"]["name"])
-        socketio.emit('update', event["fullDocument"]["name"])
+        #print(event)
+        try:
+            #CreatOrderForFront_end(event,foodMenu)
+            socketio.emit('new_order', CreatOrderForFront_end(event,foodMenu))
+        except KeyError:
+            pass
+        
+
 
 thread = threading.Thread(target=MongoDBlistner)
 thread.setDaemon(True)
@@ -66,6 +75,5 @@ thread.start()
 
 
 if __name__ == '__main__':
-    socketio.run(app,debug=True)
+    socketio.run(host="0.0.0.0",app=app,debug=True)
 
-#app.run(host="0.0.0.0",debug=True)

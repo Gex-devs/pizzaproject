@@ -1,0 +1,13 @@
+.Orders {
+  position: absolute;
+
+  align-items: center;
+  padding-left: 1cm;
+  padding-top: 1cm;
+  left: 10cm;
+  top: 5cm;
+  width: 25cm;
+  background-color: red;
+  height: 10cm;
+}
+

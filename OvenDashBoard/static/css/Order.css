@@ -1,0 +1,49 @@
+.OrderItem {
+  position: relative;
+  width: 178px;
+  height: 134px;
+  background: #28282a;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+.OrderInsideContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.OrderText {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 8px;
+  font-weight: bold;
+}
+
+.OrderNumber {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  color: #B1B0B0;
+}
+.InsideOrders {
+  width: 129px;
+  height: 56px;
+  margin-top: 15px;
+  margin-left: 23px;
+  overflow: auto;
+  background: #d9d9d9;
+}
+
+.OrderButton {
+  font-family: "Inter";
+  position: relative;
+  margin-top: 25px;
+  margin-left: 12px;
+  width: 148px;
+  height: 20px;
+  color: rgb(255, 255, 255);
+  background: #00ff19;
+  border-radius: 6px;
+}
