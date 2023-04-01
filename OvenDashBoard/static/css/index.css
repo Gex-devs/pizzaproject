@@ -1,13 +1,63 @@
-.Orders {
-  position: absolute;
-
-  align-items: center;
+body{
+  background: #35333B;
+}
+.Holder{
+  position: relative;
+  max-width: 100%;
+  height: 20cm;
+  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 7.3cm;
+  margin-top: 3cm;
   padding-left: 1cm;
-  padding-top: 1cm;
-  left: 10cm;
-  top: 5cm;
+}
+
+.CurrentOrder{
+  position: relative;
+  background: #28282A;
+  width: 10cm;
+  height: 19cm;
+  border-radius: 6px;
+}
+.Orders {
+  position: relative;
+  transform: scale(1.5);
+  align-items: center;
   width: 25cm;
-  background-color: red;
-  height: 10cm;
+  height: 14cm;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.Orders > * {
+  width: calc(25% - 3cm);
+  margin: 0.72cm;
+  transition: all 0.3s ease; 
+}
+
+.Orders > *:hover {
+  transform: scale(1.1); 
+}
+.Orders > *:nth-child(even) {
+  animation: newItemAdded 0.3s ease-in-out;
+}
+
+@keyframes newItemAdded {
+  0% {
+    opacity: 0;
+    transform: translateX(-20%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(5%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
 }
 

@@ -54,7 +54,15 @@ def page(ID):
     pendingOrderCol.insert_one(tt)
     return "200"
 
+@app.route("/StartOrder",methods=['POST'])
+def startOrder():
+    
+    print("Called")
+    OrderID = request.get_data().decode('utf-8')
+    #CreatStartOrder(OrderID,pendingOrderCol,foodMenu)
+    socketio.emit('StartOrder', CreatStartOrder(OrderID,pendingOrderCol,foodMenu))
 
+    return "200"
 
 # MongoDB Thread
 def MongoDBlistner():

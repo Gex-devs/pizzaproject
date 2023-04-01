@@ -6,6 +6,7 @@
   border-radius: 6px;
   display: flex;
   flex-direction: column;
+  transform: scale(1.2);
 }
 .OrderInsideContainer {
   display: flex;
@@ -44,6 +45,6 @@
   width: 148px;
   height: 20px;
   color: rgb(255, 255, 255);
-  background: #00ff19;
+  background: #000AFF;
   border-radius: 6px;
 }

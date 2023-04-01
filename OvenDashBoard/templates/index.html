@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <div class="Orders" id="order">
-      <div class="OrderItem">
-        <div class="InsideOrders">
-          <div class="OrderInsideContainer">
-            <div class="OrderText">Chicken burger</div>
-            <div class="OrderNumber">x2</div>
+    <div class="Holder">
+      <div class="CurrentOrder" id="currentOrder">
+       
+      </div>
+      <div class="Orders" id="order">
+        <div class="OrderItem">
+          <div class="InsideOrders">
+            <div class="OrderInsideContainer">
+              <p class="OrderText">Chicken burger</p>
+              <p class="OrderNumber">x2</p>
+            </div>
+            <div class="OrderInsideContainer">
+              <p class="OrderText">Pizza</p>
+              <p class="OrderNumber">x2</p>
+            </div>
           </div>
-          <div class="OrderInsideContainer">
-            <div class="OrderText">Chicken burger</div>
-            <div class="OrderNumber">x2</div>
-          </div>
+          <button class="OrderButton" value="642732078ceafc25afd347ad" onClick="startOrder(this)">START ORDER</button>
         </div>
-        <button class="OrderButton" onClick="appendOrder()">READY</button>
       </div>
     </div>
   </body>
@@ -31,4 +36,8 @@
     rel="stylesheet"
     href="{{ url_for('static', filename='css/Order.css') }}"
   />
+  <link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/enchancer.css') }}"
+/>
 </html>

@@ -1,0 +1,29 @@
+.CurrentOrderInside {
+  position: absolute;
+  width: 7cm;
+  height: 14cm;
+  top: 1cm;
+  left: 0.5cm;
+  align-self: center;
+  padding-left: 10px;
+  background: #ffffff;
+}
+
+.OrderInsideCurrentOrder {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.CurrentOrderFirstButton{
+  position: absolute;
+  top: 16cm;
+  left: 2cm;
+}
+
+.CurrentOrderSecondButton{
+  position: absolute;
+  top: 17cm;
+  left: 2cm;
+}
