@@ -1,9 +1,9 @@
 from datetime import datetime
 from bson import ObjectId
 import json
+from pymongo.collection import Collection
 
-
-def CreatOrderForFront_end(event, mongodbCol) -> str:
+def CreatOrderForFront_end(event, mongodbCol:Collection) -> str:
     # Get the wallTime field from the event and convert it to a datetime object
     time = event['wallTime']
     time = datetime.fromisoformat(str(time))
@@ -43,11 +43,9 @@ def CreatOrderForFront_end(event, mongodbCol) -> str:
     return order_json
 
 
-def CreatStartOrder(OrderId, MongodbColpendingOrder,MongodbColFoodMenu) -> str:
+def CreatStartOrder(OrderId, MongodbColpendingOrder:Collection,MongodbColFoodMenu:Collection) -> str:
 
     Order = MongodbColpendingOrder.find_one(ObjectId(OrderId))
-
-
     order_items = {}
 
 # Loop through the OrderItems dictionary and append each item to the order_items dictionary
@@ -58,7 +56,8 @@ def CreatStartOrder(OrderId, MongodbColpendingOrder,MongodbColFoodMenu) -> str:
         order_items[item_name] = item
 
     # Create the order dictionary with the order ID, logTime, and order items
-    order = {'Order_id': str(Order['_id']),'OrderItems': order_items}
+    order = {'Order_id': str(Order['_id']),'OrderItems': order_items,
+             'logTime': str(datetime.now())}
 
     # Convert the order dictionary to a JSON string and print it
     order_json = json.dumps(order)

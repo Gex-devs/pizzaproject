@@ -26,25 +26,46 @@
   font-style: normal;
   font-weight: 400;
   font-size: 9px;
-  color: #B1B0B0;
+  color: #b1b0b0;
 }
 .InsideOrders {
   width: 129px;
   height: 56px;
-  margin-top: 15px;
   margin-left: 23px;
   overflow: auto;
   background: #d9d9d9;
+}
+.InsideOrders::-webkit-scrollbar {
+  width: 2px; /* Set the width of the scrollbar */
+}
+
+.InsideOrders::-webkit-scrollbar-thumb {
+  background-color: #FF9900; /* Set the color of the thumb */
+  border-radius: 10px; /* Set the border radius of the thumb */
+}
+
+.InsideOrders::-webkit-scrollbar-track {
+  background-color: #c2c2c2; /* Set the color of the track */
 }
 
 .OrderButton {
   font-family: "Inter";
   position: relative;
-  margin-top: 25px;
-  margin-left: 12px;
+  margin-top: 8px;
+  margin-left: 15px;
   width: 148px;
   height: 20px;
   color: rgb(255, 255, 255);
-  background: #000AFF;
+  background: #000aff;
   border-radius: 6px;
+}
+time {
+  align-self: center;
+  color: white;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  margin-top: 10px;
 }

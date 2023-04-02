@@ -3,10 +3,11 @@
   <body>
     <div class="Holder">
       <div class="CurrentOrder" id="currentOrder">
-       
+        
       </div>
       <div class="Orders" id="order">
         <div class="OrderItem">
+          <time datetime="2023-04-01T13:45:00">10:30</time>
           <div class="InsideOrders">
             <div class="OrderInsideContainer">
               <p class="OrderText">Chicken burger</p>
@@ -17,7 +18,14 @@
               <p class="OrderNumber">x2</p>
             </div>
           </div>
-          <button class="OrderButton" value="642732078ceafc25afd347ad" onClick="startOrder(this)">START ORDER</button>
+          <button
+            class="OrderButton"
+            value="642732078ceafc25afd347ad"
+            onClick="startOrder(this)"
+          >
+            START ORDER
+          </button>
+    
         </div>
       </div>
     </div>
@@ -37,7 +45,11 @@
     href="{{ url_for('static', filename='css/Order.css') }}"
   />
   <link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/enchancer.css') }}"
-/>
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/enchancer.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+  />
 </html>
