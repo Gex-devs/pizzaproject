@@ -1,36 +1,18 @@
 
-var socket = io.connect('http://192.168.1.19:5000/');
 
-socket.on('connect', function () {
-    console.log('Connected!');
-});
-
-socket.on('update', function (value) {
-    console.log("got it")
-    let textvalue = document.createElement("p")
-    textvalue.innerHTML = value
-    document.getElementById("empty_list").appendChild(textvalue)
-})
-
-
-socket.on('new_order', function (data) {
-    appendOrder(data)
-});
-
-socket.on('StartOrder', function (data) {
-    CurrentOrderUpdate(data)
-});
-
-
-
-function demo() {
+function startCooking(ETA) {
     console.log("clicked")
     // Get the buttons
-    const cancelButton = document.querySelector('.CurrentOrderFirstButton');
-    const waitingButton = document.querySelector('.CurrentOrderSecondButton');
+    try {
+        const cancelButton = document.querySelector('.CurrentOrderFirstButton');
+        const waitingButton = document.querySelector('.CurrentOrderSecondButton');
 
-    cancelButton.classList.add('hide');
-    waitingButton.classList.add('hide');
+        cancelButton.classList.add('hide');
+        waitingButton.classList.add('hide');
+    } catch (error) {
+        console.log("Buttons not found")
+    }
+
 
     createTimer("01");
     // Get the timer elements
@@ -38,7 +20,7 @@ function demo() {
     const timerSeconds = document.querySelector('.timer-seconds');
 
     // Set the initial time
-    let totalTime = 60; // 10 minutes in seconds
+    let totalTime = 60; // 1 minutes in seconds
     let remainingTime = totalTime;
 
 
@@ -55,7 +37,10 @@ function demo() {
         // Stop the timer when it reaches zero
         if (remainingTime === 0) {
             clearInterval(intervalId);
-            alert('Food is Ready'); // Should probably use Sweet Alert for this one
+            swal("ORDER 001", "FOOD IS READY", "success");
+            const orderItem = CurrentOrderButton.closest('.OrderItem');
+            orderItem.remove();
+            document.getElementById("currentOrder").innerHTML=""
         } else {
             remainingTime--;
         }
@@ -67,13 +52,15 @@ function CurrentOrderUpdate(items) {
     // Get the container element where you want to add the order details
     const container = document.getElementById("currentOrder");
 
+
     // Remove last order first
 
     container.innerHTML = "";
     const time_log = document.createElement('time')
     time_log.classList.add('log_timer')
-    time_log.innerHTML = "10:30"
- 
+    // Convert Log time into minutes 
+    
+
 
     const insideOrders = document.createElement('div');
     insideOrders.classList.add('CurrentOrderInside');
@@ -84,6 +71,12 @@ function CurrentOrderUpdate(items) {
     // Get the order items dictionary
     var order_items = order_obj.OrderItems;
 
+    var log_time = order_obj.logTime;
+
+    // Set log time, fix time and date to get minute
+    //time_log.innerHTML = log_time
+
+    time_log.innerHTML = "10:30"
 
     // Loop through the OrderItems object and create the HTML elements for each item
     for (var item_key in order_items) {
@@ -117,7 +110,7 @@ function CurrentOrderUpdate(items) {
     cancelButton.classList.add("CurrentOrderFirstButton");
     cancelButton.textContent = "CANCEL ORDER";
     cancelButton.value = order_id;
-    cancelButton.onclick=()=>{demo()}
+    cancelButton.onclick=(cancelOrder)
 
     const waitingButton = document.createElement("p");
     waitingButton.classList.add("CurrentOrderSecondButton");
@@ -131,19 +124,29 @@ function CurrentOrderUpdate(items) {
     container.appendChild(buttonContainer);
 }
 
+let CurrentOrderButton;
 
 function startOrder(button) {
-    var xhr = new XMLHttpRequest();
-
-    xhr.open('POST', 'http://192.168.1.19:5000/StartOrder', true);
+    CurrentOrderButton = button
+    if(document.getElementById("currentOrder").innerHTML !== ""){
+        swal({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Order is Already in progress',
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
+    }else{
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://192.168.1.19:5000/StartOrder', true);
     // set the content-type header to indicate that we're sending plain text data
-    xhr.setRequestHeader('Content-Type', 'text/plain');
+        xhr.setRequestHeader('Content-Type', 'text/plain');
     //var data = button.value;
-    var data = button.value;
-    console.log(data)
+        var data = button.value;
+        console.log(data)
     // send the POST request with the string data
-    xhr.send(data);
-
+        xhr.send(data);
+        button.style.backgroundColor = 'red';
+    }
 }
 
 function createOrderItem(items) {
@@ -159,9 +162,6 @@ function createOrderItem(items) {
     var order_id = order_obj.Order_id;
     // Get the order items dictionary
     var order_items = order_obj.OrderItems;
-
-
-
 
     for (var item_key in order_items) {
 
@@ -191,8 +191,12 @@ function createOrderItem(items) {
     orderButton.classList.add('OrderButton');
     orderButton.value = order_id
     orderButton.textContent = 'START ORDER';
-    orderButton.onclick=()=>{startOrder(orderButton)}
+    orderButton.onclick = () => { startOrder(orderButton) }
 
+    const timeLog = document.createElement("time")
+    timeLog.innerHTML = "10:29"
+
+    orderItem.appendChild(timeLog);
     orderItem.appendChild(insideOrders);
     orderItem.appendChild(orderButton);
 
@@ -205,42 +209,4 @@ function appendOrder(pendingOrder) {
 }
 
 
-function createTimer(time) {
-    // Create the elements
-    const timerContainer = document.createElement('div');
-    timerContainer.classList.add('timer-container');
-    timerContainer.style.animation = 'newItemAdded 0.8s ease-in-out';
 
-    const timerLabel = document.createElement('div');
-    timerLabel.classList.add('timer-label');
-    timerLabel.innerText = 'ETA';
-
-    const timer = document.createElement('div');
-    timer.classList.add('timer');
-
-    const timerMinutes = document.createElement('div');
-    timerMinutes.classList.add('timer-minutes');
-    timerMinutes.innerText = time;
-
-    const timerSeparator = document.createElement('div');
-    timerSeparator.classList.add('timer-separator');
-    timerSeparator.innerText = ':';
-
-    const timerSeconds = document.createElement('div');
-    timerSeconds.classList.add('timer-seconds');
-    timerSeconds.innerText = '00';
-
-    // Append the elements to the timer container
-    timer.appendChild(timerMinutes);
-    timer.appendChild(timerSeparator);
-    timer.appendChild(timerSeconds);
-
-    timerContainer.appendChild(timerLabel);
-    timerContainer.appendChild(timer);
-
-    // Add the timer container to the page
-    const parentElement = document.getElementById("currentOrder");
-    parentElement.appendChild(timerContainer);
- 
-
-}

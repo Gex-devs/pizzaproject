@@ -4,10 +4,8 @@ import json
 from pymongo.collection import Collection
 
 def CreatOrderForFront_end(event, mongodbCol:Collection) -> str:
-    # Get the wallTime field from the event and convert it to a datetime object
-    time = event['wallTime']
-    time = datetime.fromisoformat(str(time))
-
+   
+    time = datetime.now()
     # Get the Item_id and AmountOfOrder fields from the event's fullDocument
     order_items = event['fullDocument']['OrderItems']
     item_ids = []

@@ -1,6 +1,4 @@
-.CurrentOrder {
-  animation: rollIn 0.5s ease-in;
-}
+
 
 @keyframes rollIn {
   0% {
@@ -14,7 +12,7 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  font-size: 25px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -22,15 +20,16 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  font-size: 29px;
+  font-size: 14px;
   color: #b1b0b0;
 }
 .CurrentOrderInside {
-  position: absolute;
+  position: relative;
   width: 7cm;
-  height: 13.6cm;
-  top: 1.6cm;
-  left: 0.5cm;
+  height: 25rem;
+  margin-top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
   align-self: center;
   padding-left: 10px;
   background: #ffffff;
@@ -45,11 +44,11 @@
 }
 .CurrentOrderButtons{
   color: white;
-  
+  position: relative;
+  margin-top: 1rem;
 }
 .CurrentOrderFirstButton {
-  position: absolute;
-  top: 16cm;
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
   background: #FF0000;
@@ -78,7 +77,6 @@
   
   /* Yatayda ve Düşeyde Ortalama   */ 
   position: absolute;
-  top: 17cm;
   left: 50%;
   width: 250px;
   transform: translateX(-50%);
@@ -144,7 +142,6 @@
   width: 5cm;
   height: 5cm;
   left: 50%;
-  top:10px;
   transform: translateX(-50%);
   color: white;
   font-family: "Inter";
@@ -153,14 +150,14 @@
   font-size: 55px;
   line-height: 24px;
 }
+
 /*sfaf*/
 .timer-container {
   display: flex;
   align-items: center;
   margin: 20px 0;
-  position: absolute;
-  top: 16cm;
-  left: 50%;
+  position: relative;
+  left: 82%;
   transform: translateX(-50%);
 }
 

@@ -1,12 +1,16 @@
 from bson import ObjectId
-from flask import Flask, render_template,jsonify, request
-import time,os,logging
+from flask import Flask, render_template, jsonify, request
+import time
+import os
+import logging
 from dotenv import load_dotenv
 from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from flask_cors import CORS
 import threading
+import pymongo
 from processors import *
+from datetime import datetime
 
 # load local env
 load_dotenv()
@@ -15,38 +19,108 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-socketio = SocketIO(app,cors_allowed_origins='*')
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 CORS(app=app)
 
+use_database = os.getenv("USE_DATABASE")
+
+
+# MongoDB Thread
+def pendingOrderListner():
+    try:
+        with pendingOrderCol.watch(
+                [{'$match': {'operationType': 'insert'}}]) as stream:
+            for insert_change in stream:
+                #print("New Order Added")
+                print("New Order Arrived")
+                socketio.emit('new_order', CreatOrderForFront_end(insert_change, foodMenu))
+    except pymongo.errors.PyMongoError:
+        # The ChangeStream encountered an unrecoverable error or the
+        # resume attempt failed to recreate the cursor.
+        logging.error('PyMongoErrr')
+
+# MongoDB Thread
+
+
+def HistoryOrderListner():
+    try:
+        with HistoryOrderCol.watch(
+                [{'$match': {'operationType': 'insert'}}]) as stream:
+            for insert_change in stream:
+                #print("New Order Added")
+                print("New Order Arrived")
+                socketio.emit('UpdateHistory', CreatOrderForFront_end(
+                    insert_change, foodMenu))
+    except pymongo.errors.PyMongoError:
+        # The ChangeStream encountered an unrecoverable error or the
+        # resume attempt failed to recreate the cursor.
+        logging.error('PyMongoErrr')
+
+
 # Mongo DB config
-client = MongoClient(os.getenv("MONGODB_ADDRESS"), 27017)
+if use_database == "1":
 
-db = client['pizzahouse']
+    client = MongoClient(os.getenv("MONGODB_ADDRESS"))
 
-pendingOrderCol = db['pendingOrder']
-foodMenu = db['foodMenu']
-accounts = db['accounts']
+    db = client['pizzaHouse']
 
+    pendingOrderCol = db['pendingOrder']
+    HistoryOrderCol = db['History']
 
-change_stream = pendingOrderCol.watch()
+    foodMenu = db['foodMenu']
+    accounts = db['accounts']
 
+    PendingOrderThread = threading.Thread(target=pendingOrderListner)
+    PendingOrderThread.setDaemon(True)
+
+    HistoryOrderThread = threading.Thread(target=HistoryOrderListner)
+    HistoryOrderThread.setDaemon(True)
+
+    HistoryOrderThread.start()
+    PendingOrderThread.start()
 
 
 @socketio.on('connect')
 def clientConnected():
     print("Client Joined")
 
- 
+
 @app.route("/")
-def entry():
-    return render_template('index.html')
+def Orderentry():
+    Orders = pendingOrderCol.find()
+    return render_template('index.html', orders=Orders)
 
 
-@app.route("/testendpoint")
-def testendpoint():
+@app.route("/history")
+def Historyentry():
+
+    return render_template('history.html')
+
+
+@app.route("/OrderProccesed")
+def CompleteOrCancle():
 
     return "200"
+
+
+@app.route("/testendpoint", methods=['POST', 'GET'])
+def testendpoint():
+    Orders = pendingOrderCol.find()
+    for x in Orders:
+        for y in x:
+            print(y)
+
+    return "200"
+
+
+@app.route("/StartCooking")
+def OvenRecv():
+
+    # socketio.emit('start_cooking',CalculatedETA) Calculate ETA
+    socketio.emit('start_cooking', "200")
+    return "200"
+
 
 @app.route("/AddOrder/<ID>")
 def page(ID):
@@ -55,34 +129,17 @@ def page(ID):
     pendingOrderCol.insert_one(tt)
     return "200"
 
-@app.route("/StartOrder",methods=['POST'])
+
+@app.route("/StartOrder", methods=['POST'])
 def startOrder():
-    
-    print("Called")
+
     OrderID = request.get_data().decode('utf-8')
-    #CreatStartOrder(OrderID,pendingOrderCol,foodMenu)
-    socketio.emit('StartOrder', CreatStartOrder(OrderID,pendingOrderCol,foodMenu))
+    # CreatStartOrder(OrderID,pendingOrderCol,foodMenu)
+    socketio.emit('StartOrder', CreatStartOrder(
+        OrderID, pendingOrderCol, foodMenu))
 
     return "200"
 
-# MongoDB Thread
-def MongoDBlistner():
-    for event in change_stream:
-        #print(event)
-        try:
-            #CreatOrderForFront_end(event,foodMenu)
-            socketio.emit('new_order', CreatOrderForFront_end(event,foodMenu))
-        except KeyError:
-            pass
-        
-
-
-thread = threading.Thread(target=MongoDBlistner)
-thread.setDaemon(True)
-thread.start()
-
-
 
 if __name__ == '__main__':
-    socketio.run(host="0.0.0.0",app=app,debug=True)
-
+    socketio.run(host="0.0.0.0", app=app, debug=True)

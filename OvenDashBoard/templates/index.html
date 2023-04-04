@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <nav>
+      <ul>
+        <li><a href="/">Order</a></li>
+        <li><a href="/history">History</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
     <div class="Holder">
-      <div class="CurrentOrder" id="currentOrder">
-        
-      </div>
+      <div class="CurrentOrder" id="currentOrder"></div>
+      <!-- Current Order Div is here -->
       <div class="Orders" id="order">
+        {% for order in orders %}
+        <div class="OrderItem">
+          <time>10:30</time>
+          <div class="InsideOrders">
+            {% for item in order['OrderItems'].values() %}
+            <div class="OrderInsideContainer">
+              <p class="OrderText">{{ item['Name'] }}</p>
+              <p class="OrderNumber">x{{ item['AmountOfOrder'] }}</p>
+            </div>
+            {% endfor %}
+          </div>
+          <button
+            class="OrderButton"
+            value="{{ order._id }}"
+            onClick="startOrder(this)"
+          >
+            START ORDER
+          </button>
+        </div>
+        {% endfor %}
         <div class="OrderItem">
           <time datetime="2023-04-01T13:45:00">10:30</time>
           <div class="InsideOrders">
@@ -20,21 +46,29 @@
           </div>
           <button
             class="OrderButton"
-            value="642732078ceafc25afd347ad"
+            value="642bbd64558774e6f54ddc1a"
             onClick="startOrder(this)"
           >
             START ORDER
           </button>
-    
         </div>
       </div>
     </div>
   </body>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script
     type="text/javascript"
     src="{{ url_for('static', filename = 'js/app.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/ui.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/sockets.js') }}"
   ></script>
   <link
     rel="stylesheet"
@@ -47,6 +81,10 @@
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/enchancer.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/navigationBar.css') }}"
   />
   <link
     rel="stylesheet"
