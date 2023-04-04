@@ -32,32 +32,13 @@
           </button>
         </div>
         {% endfor %}
-        <div class="OrderItem">
-          <time datetime="2023-04-01T13:45:00">10:30</time>
-          <div class="InsideOrders">
-            <div class="OrderInsideContainer">
-              <p class="OrderText">Chicken burger</p>
-              <p class="OrderNumber">x2</p>
-            </div>
-            <div class="OrderInsideContainer">
-              <p class="OrderText">Pizza</p>
-              <p class="OrderNumber">x2</p>
-            </div>
-          </div>
-          <button
-            class="OrderButton"
-            value="642bbd64558774e6f54ddc1a"
-            onClick="startOrder(this)"
-          >
-            START ORDER
-          </button>
         </div>
       </div>
     </div>
   </body>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script
     type="text/javascript"
     src="{{ url_for('static', filename = 'js/app.js') }}"

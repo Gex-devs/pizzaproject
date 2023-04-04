@@ -48,8 +48,7 @@ def HistoryOrderListner():
         with HistoryOrderCol.watch(
                 [{'$match': {'operationType': 'insert'}}]) as stream:
             for insert_change in stream:
-                #print("New Order Added")
-                print("New Order Arrived")
+                logging.info("History Update")
                 socketio.emit('UpdateHistory', CreatOrderForFront_end(
                     insert_change, foodMenu))
     except pymongo.errors.PyMongoError:
@@ -94,12 +93,18 @@ def Orderentry():
 
 @app.route("/history")
 def Historyentry():
+    History = HistoryOrderCol.find()
 
-    return render_template('history.html')
+    return render_template('history.html',orders=History)
 
 
-@app.route("/OrderProccesed")
+@app.route("/OrderProcces",methods=['POST'])
 def CompleteOrCancle():
+    Data = request.get_data().decode("UTF-8")
+    
+    OrderId = Data.split(":")[0]
+    OrderStatus = Data.split(":")[1]
+    UpdateHistory(OrderId,OrderStatus,pendingOrderCol,HistoryOrderCol)
 
     return "200"
 

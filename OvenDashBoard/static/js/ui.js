@@ -1,20 +1,23 @@
-function cancelOrder() {
-    swal({
+function cancelOrder(OrderID) {
+    Swal.fire({
         title: "Are you sure?",
         text: "Once Canceled, you will not be able to recover this Order",
         icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    })
-        .then((willDelete) => {
-            if (willDelete) {
-                const orderItem = CurrentOrderButton.closest('.OrderItem');
-                orderItem.remove();
-                swal("Poof! Order is Gone!", {
-                    icon: "success",
-                });
-            }
-        });
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        denyButtonText: `No`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            const orderItem = CurrentOrderButton.closest('.OrderItem');
+            orderItem.remove();
+            ProcessOrder(OrderID,false)
+            document.getElementById("currentOrder").innerHTML=""
+            Swal.fire("Poof! Order is Gone!", {
+                icon: "success",
+            });
+        }
+      })
 }
 
 function createTimer(time) {
@@ -56,7 +59,7 @@ function createTimer(time) {
 }
 
 
-function updateHistory(item) {
+function updateHistory(items) {
     const orderItem = document.createElement('div');
     orderItem.classList.add('OrderItem');
     orderItem.style.animation = 'newItemAdded 0.3s ease-in-out';
@@ -94,19 +97,27 @@ function updateHistory(item) {
         }
     }
 
-    const orderButton = document.createElement('button');
-    orderButton.classList.add('OrderButton');
-    orderButton.value = order_id
-    orderButton.textContent = 'START ORDER';
-    orderButton.onclick = () => { startOrder(orderButton) }
+    const status = document.createElement('p');
+    status.classList.add('Status');
+    if(order_obj.Status === "completed"){
+        status.style.backgroundColor = "green"
+    }else{
+        status.style.backgroundColor = "red"
+    }
+    status.value = order_id
+    status.textContent = order_obj.Status;
 
     const timeLog = document.createElement("time")
     timeLog.innerHTML = "10:29"
 
     orderItem.appendChild(timeLog);
     orderItem.appendChild(insideOrders);
-    orderItem.appendChild(orderButton);
-
-    const MainContainer = document.getElementById("historyorder")
-    MainContainer.appendChild(orderItem)
+    orderItem.appendChild(status);
+    try {
+        const MainContainer = document.getElementById("historyorder")
+        MainContainer.appendChild(orderItem)
+    } catch (error) {
+        console.log("Currently Not on History to update Ui")
+    }
+    
 }

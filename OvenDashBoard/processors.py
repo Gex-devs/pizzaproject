@@ -4,7 +4,6 @@ import json
 from pymongo.collection import Collection
 
 def CreatOrderForFront_end(event, mongodbCol:Collection) -> str:
-   
     time = datetime.now()
     # Get the Item_id and AmountOfOrder fields from the event's fullDocument
     order_items = event['fullDocument']['OrderItems']
@@ -34,6 +33,10 @@ def CreatOrderForFront_end(event, mongodbCol:Collection) -> str:
         order_items['Item{}'.format(i + 1)] = item
         order = {'Order_id': str(orderID), "logTime": str(
             time), 'OrderItems': order_items}
+    
+    status = event['fullDocument'].get('Status')
+    if status is not None:
+        order.update({'Status':status})
 
     order_json = json.dumps(order)
     print(order_json)
@@ -63,3 +66,14 @@ def CreatStartOrder(OrderId, MongodbColpendingOrder:Collection,MongodbColFoodMen
 
     
     return order_json
+
+
+def UpdateHistory(OrderID:str, OrderState:str,MongodbColpendingOrder:Collection,MongodbColHistory:Collection):
+
+    Update = MongodbColpendingOrder.find_one(ObjectId(OrderID))
+
+    Update['Status'] = "completed" if OrderState == "true" else "canceled"
+    MongodbColHistory.insert_one(Update)
+    MongodbColpendingOrder.delete_one({'_id': Update['_id']})
+    print("Deleted Object")
+  

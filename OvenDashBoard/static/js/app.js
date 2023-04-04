@@ -37,16 +37,23 @@ function startCooking(ETA) {
         // Stop the timer when it reaches zero
         if (remainingTime === 0) {
             clearInterval(intervalId);
-            swal("ORDER 001", "FOOD IS READY", "success");
+            ProcessOrder(CurrentOrderButton.value,true)
             const orderItem = CurrentOrderButton.closest('.OrderItem');
             orderItem.remove();
             document.getElementById("currentOrder").innerHTML=""
+            Swal.fire({
+                icon: 'success',
+                title: 'Order is Ready',
+                showConfirmButton: false,
+                timer: 1500
+            })
         } else {
             remainingTime--;
         }
     }, 1000);
 
 }
+
 
 function CurrentOrderUpdate(items) {
     // Get the container element where you want to add the order details
@@ -110,7 +117,7 @@ function CurrentOrderUpdate(items) {
     cancelButton.classList.add("CurrentOrderFirstButton");
     cancelButton.textContent = "CANCEL ORDER";
     cancelButton.value = order_id;
-    cancelButton.onclick=(cancelOrder)
+    cancelButton.onclick=()=>{cancelOrder(cancelButton.value)}
 
     const waitingButton = document.createElement("p");
     waitingButton.classList.add("CurrentOrderSecondButton");
@@ -205,7 +212,12 @@ function createOrderItem(items) {
 
 function appendOrder(pendingOrder) {
     const orderItem = createOrderItem(pendingOrder);
-    document.getElementById("order").appendChild(orderItem);
+    try {
+        document.getElementById("order").appendChild(orderItem);
+    } catch (error) {
+        console.log("Updated Order but not In Order Page")
+    }
+    
 }
 
 

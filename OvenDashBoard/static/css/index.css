@@ -29,7 +29,7 @@ body {
 .Orders {
   position: fixed;
   left: 33.07086615rem;
-  align-items: center;
+  align-items: flex-start;
   width: 59.05511811rem;
   height: 35.43307086rem;
   display: flex;

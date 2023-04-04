@@ -29,3 +29,14 @@ socket.on('UpdateHistory', function (data) {
     updateHistory(data)
 });
 
+
+function ProcessOrder(buttonValue,status) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://192.168.1.19:5000/OrderProcces', true);
+    // set the content-type header to indicate that we're sending plain text data
+    xhr.setRequestHeader('Content-Type', 'text/plain');
+    //var data = button.value;
+    console.log(buttonValue)
+    // send the POST request with the string data
+    xhr.send(buttonValue+":"+status);
+}
