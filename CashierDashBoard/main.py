@@ -1,5 +1,12 @@
-import flask
+from flask import Flask,render_template
+
+
+app = Flask(__name__)
 
 
 
-print("flasked is imported")
+@app.route("/")
+def entry():
+
+
+    return "200"

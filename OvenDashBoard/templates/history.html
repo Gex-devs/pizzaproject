@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/">Order</a></li>
+        <li><a href="/history">History</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
+    <div class="Holder">
+      <div class="HistoryOrders" id="historyorder">
+        {% for order in orders %}
+        <div class="OrderItem">
+          <time>10:30</time>
+          <div class="InsideOrders">
+            {% for item in order['OrderItems'].values() %}
+            <div class="OrderInsideContainer">
+              <p class="OrderText">{{ item['Name'] }}</p>
+              <p class="OrderNumber">x{{ item['AmountOfOrder'] }}</p>
+            </div>
+            {% endfor %}
+          </div>
+          <p
+            class="Status"
+            value="{{ order._id }}"
+            {% if order['Status'] == "completed" %}
+            style="background-color: green;"
+            {% else %}
+            style="background-color: red;"
+            {% endif %}
+          >
+            {{order['Status']}}
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/app.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/ui.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/sockets.js') }}"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/history.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/Order.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/navigationBar.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+  />
+</html>

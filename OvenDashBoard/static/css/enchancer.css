@@ -1,0 +1,199 @@
+
+
+@keyframes rollIn {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+.EnhancerText {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.EnhancerNumber {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #b1b0b0;
+}
+.CurrentOrderInside {
+  position: relative;
+  width: 7cm;
+  height: 25rem;
+  margin-top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  align-self: center;
+  padding-left: 10px;
+  background: #ffffff;
+
+}
+
+.OrderInsideCurrentOrder {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.CurrentOrderButtons{
+  color: white;
+  position: relative;
+  margin-top: 1rem;
+}
+.CurrentOrderFirstButton {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FF0000;
+  border-radius: 6px;
+  border-color: red;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: white;
+  width: 250px;
+}
+
+
+.CurrentOrderSecondButton {
+  width: 250px;
+  height: 50px;
+  
+  line-height: 50px;
+  text-align: center;
+  font-family: helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #CFF100;
+  letter-spacing: 0.2em;
+  
+  /* Yatayda ve Düşeyde Ortalama   */ 
+  position: absolute;
+  left: 50%;
+  width: 250px;
+  transform: translateX(-50%);
+}
+.CurrentOrderSecondButton::before,
+.CurrentOrderSecondButton::after {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  background: #b6c071;
+  position: absolute;
+  animation: load 0.9s infinite alternate ease-in-out;
+}
+.CurrentOrderSecondButton::before {
+  top: 0;
+}
+.CurrentOrderSecondButton::after {
+  bottom: 0;
+}
+
+@keyframes load {
+  0% {
+    left: 0;
+    height: 30px;
+    width: 15px;
+  }
+  50% {
+    height: 8px;
+    width: 40px;
+  }
+  100% {
+    left: 235px;
+    height: 30px;
+    width: 15px;
+  }
+}
+
+
+
+.CurrentOrderFirstButton,
+.CurrentOrderSecondButton {
+  transition: opacity 0.5s ease-out;
+}
+
+.CurrentOrderFirstButton.hide,
+.CurrentOrderSecondButton.hide {
+  opacity: 0;
+}
+
+/* Example of button hiding with a delay */
+.CurrentOrderFirstButton.hide {
+  transition-delay: 0.2s;
+}
+
+/* Example of button hiding with a different easing function */
+.CurrentOrderSecondButton.hide {
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.log_timer{
+  position: absolute;
+  width: 5cm;
+  height: 5cm;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 55px;
+  line-height: 24px;
+}
+
+/*sfaf*/
+.timer-container {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  position: relative;
+  left: 82%;
+  transform: translateX(-50%);
+}
+
+.timer-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: white;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  background-color: #2fbb2b;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.timer div {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.timer-separator {
+  margin: 0 5px;
+}
+
+.timer-expired {
+  color: red;
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
