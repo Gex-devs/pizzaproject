@@ -1,9 +1,44 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <div class="Holder">
 
-<h1>My First Heading</h1>
-<p id="tochange">My first paragraph.</p>
+        <div class="Orders" id="order"> 
+            <!--Food Menu-->
+            <button class="OrderItem" onClick="addToBucket(this)" value="6427031a8ceafc25afd3477c">
+                <p>Burger</p>
+            </button>
+        </div>
+        <div class="CurrentOrder" >
+            <div class="addedOrders" id="buckets">
+                
+            </div>
+            <div class="TotalCalculator">
 
+            </div>
+            <div class="ButtonsContainer">
+
+            </div>
+        </div>
+    </div>
 </body>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/app.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/socket.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/ui.js') }}"
+  ></script>
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/index.css') }}"
+  />
 </html>

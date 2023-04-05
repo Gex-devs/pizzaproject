@@ -1,0 +1,106 @@
+body {
+  background: #35333b;
+}
+.Holder {
+  position: fixed;
+  max-width: 100%;
+  height: 118.11025rem;
+  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 17.24871285rem;
+  top: 4.724409449rem;
+  left: 2.362205022rem;
+}
+
+.CurrentOrder {
+  animation: rollIn 0.5s ease-in;
+  position: fixed;
+  background: #28282a;
+  width: 23rem;
+  left: 69rem;
+  height: 38rem;
+  border-radius: 6px;
+}
+
+.addedOrders {
+  overflow: auto;
+  position: fixed;
+  background-color: red;
+  display: flex;
+  width: 23rem;
+  height: 10rem;
+  margin-top: 2rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.TotalCalculator {
+  position: fixed;
+  background-color: blue;
+  display: flex;
+  width: 23rem;
+  height: 13rem;
+  margin-top: 12rem;
+}
+.ButtonsContainer{
+  position: fixed;
+  background-color: green;
+  display: flex;
+  width: 23rem;
+  height: 13rem;
+  margin-top: 24.9rem;
+}
+.OrderItem {
+  position: relative;
+  width: 11rem;
+  height: 8.3rem;
+  
+  background: #28282a;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  transform: scale(1.2);
+}
+.Orders {
+  position: fixed;
+  background-color: red;
+  align-items: flex-start;
+  width: 59.05511811rem;
+  height: 35.43307086rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.Orders > * {
+  width: calc(30% - 10rem);
+
+  margin: 1.711992283rem;
+  transition: all 0.3s ease;
+}
+
+.Orders > *:hover {
+  transform: scale(1.1);
+}
+
+.Orders > *:nth-child(even) {
+  animation: newItemAdded 0.3s ease-in-out;
+}
+
+@keyframes newItemAdded {
+  0% {
+    opacity: 0;
+    transform: translateX(-47.24409449%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(11.81025236%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}

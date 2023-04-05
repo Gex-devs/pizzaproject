@@ -23,7 +23,7 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 
 CORS(app=app)
 
-use_database = os.getenv("USE_DATABASE")
+
 
 
 # MongoDB Thread
@@ -57,27 +57,19 @@ def HistoryOrderListner():
         logging.error('PyMongoErrr')
 
 
-# Mongo DB config
-if use_database == "1":
 
-    client = MongoClient(os.getenv("MONGODB_ADDRESS"))
-
-    db = client['pizzaHouse']
-
-    pendingOrderCol = db['pendingOrder']
-    HistoryOrderCol = db['History']
-
-    foodMenu = db['foodMenu']
-    accounts = db['accounts']
-
-    PendingOrderThread = threading.Thread(target=pendingOrderListner)
-    PendingOrderThread.setDaemon(True)
-
-    HistoryOrderThread = threading.Thread(target=HistoryOrderListner)
-    HistoryOrderThread.setDaemon(True)
-
-    HistoryOrderThread.start()
-    PendingOrderThread.start()
+client = MongoClient(os.getenv("MONGODB_ADDRESS"))
+db = client['pizzaHouse']
+pendingOrderCol = db['pendingOrder']
+HistoryOrderCol = db['History']
+foodMenu = db['foodMenu']
+accounts = db['accounts']
+PendingOrderThread = threading.Thread(target=pendingOrderListner)
+PendingOrderThread.setDaemon(True)
+HistoryOrderThread = threading.Thread(target=HistoryOrderListner)
+HistoryOrderThread.setDaemon(True)
+HistoryOrderThread.start()
+PendingOrderThread.start()
 
 
 @socketio.on('connect')
