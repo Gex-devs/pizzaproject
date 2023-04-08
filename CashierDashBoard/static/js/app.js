@@ -1,3 +1,4 @@
+
 async function addToBucket(button) {
     let inputValue;
     const { value: ipAddress } = await Swal.fire({
@@ -41,13 +42,31 @@ function sendOrder() {
     }).then((result) => {
         if (result.isConfirmed) {
             const insideItems = document.querySelectorAll('.InsideItems');
-            insideItems.forEach(item => {
-                const classifier = item.querySelector('.InsideItemsClassifier');
-                const itemName = classifier.children[0].textContent;
-                const itemQuantity = classifier.children[1].textContent;
-                console.log(itemName, itemQuantity);
+            const orderItems = {};
+            let counter = 1;
+
+            insideItems.forEach((item) => {
+                const itemValue = item.getAttribute('data-value');
+                const pElements = item.querySelectorAll('p');
+                const name = pElements[0].textContent;
+                const quantity = pElements[1].textContent;
+                const price = item.querySelector('.InsideItemsprice').textContent;
+
+                const itemId = { "$oid": itemValue };
+                const itemData = { Item_id: itemId, Name: name, AmountOfOrder: parseInt(quantity.slice(1)) };
+
+                const itemName = "Item" + counter;
+                orderItems[itemName] = itemData;
+                counter++;
             });
 
+            const jsonData = { OrderItems: orderItems };
+            console.log(JSON.stringify(jsonData, null, 2));
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:5000/pendOrder', true);
+            xhr.setRequestHeader('Content-Type', 'text/plain');
+            xhr.send(JSON.stringify(jsonData, null, 2));
+            resetUi()
         }
     })
 }

@@ -54,6 +54,14 @@ def buckets():
     
     return "200"
 
+@app.route("/pendOrder",methods=['POST'])
+def pendOrder():
+
+    Data = request.get_data().decode("UTF-8")
+
+    addTopendingOrder(Data,pendingOrderCol)
+
+    return "200"
 
 def pendOrder():
 
