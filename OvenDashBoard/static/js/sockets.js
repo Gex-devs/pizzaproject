@@ -1,5 +1,5 @@
 
-var socket = io.connect('http://192.168.1.19:5000/');
+var socket = io.connect('http://127.0.0.1:5000/');
 
 socket.on('connect', function () {
     console.log('Connected!');
@@ -32,7 +32,7 @@ socket.on('UpdateHistory', function (data) {
 
 function ProcessOrder(buttonValue,status) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://192.168.1.19:5000/OrderProcces', true);
+    xhr.open('POST', 'http://127.0.0.1:5000/OrderProcces', true);
     // set the content-type header to indicate that we're sending plain text data
     xhr.setRequestHeader('Content-Type', 'text/plain');
     //var data = button.value;

@@ -1,6 +1,8 @@
 body {
   background: #35333b;
-  overflow: hidden;
+  height: 1000px;
+  overflow: auto;
+  
 }
 .Status {
     padding-left: 40px;

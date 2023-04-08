@@ -12,7 +12,9 @@
       <div class="HistoryOrders" id="historyorder">
         {% for order in orders %}
         <div class="OrderItem">
+          <div class="tableOrder"><div class="tableOrderText">001</div></div>
           <time>10:30</time>
+          <div class="icons"><img src="https://i.pinimg.com/originals/a5/8a/6a/a58a6affd571f9ef94faa40d72dea823.png" width="27"></div>
           <div class="InsideOrders">
             {% for item in order['OrderItems'].values() %}
             <div class="OrderInsideContainer">

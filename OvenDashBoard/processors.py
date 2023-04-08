@@ -27,7 +27,7 @@ def CreatOrderForFront_end(event, mongodbCol:Collection) -> str:
         item_name = item_names[i]
         item_price = item_prices[i]
         # Create a dictionary representing the item and its amount
-        item = {'Item_id': str(item_id), 'Item_name': item_name,
+        item = {'Item_id': str(item_id), 'Item_name': item_name, 'Order_ID': 100,
                 'AmountOfOrder': amount, 'Price': item_price}
         # Add the dictionary to the order items dictionary with the item ID as the key
         order_items['Item{}'.format(i + 1)] = item
@@ -52,7 +52,7 @@ def CreatStartOrder(OrderId, MongodbColpendingOrder:Collection,MongodbColFoodMen
 # Loop through the OrderItems dictionary and append each item to the order_items dictionary
     for item_name, item_info in Order["OrderItems"].items():
         tt = MongodbColFoodMenu.find_one(ObjectId(item_info['Item_id']))
-        item = {'Item_id': str(item_info['Item_id']), 'Item_name': tt['name'],
+        item = {'Item_id': str(item_info['Item_id']), 'Item_name': tt['name'],''
                 'AmountOfOrder': item_info['AmountOfOrder'], 'Price': tt['price']}
         order_items[item_name] = item
 
