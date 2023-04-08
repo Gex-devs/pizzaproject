@@ -1,9 +1,105 @@
 <!DOCTYPE html>
 <html>
-<body>
-
-<h1>My First Heading</h1>
-<p id="tochange">My first paragraph.</p>
-
-</body>
+  <body>
+    <div class="Holder">
+      <div class="TopCatago"></div>
+      <div class="Orders" id="order">
+        <!--Food Menu-->
+        {% for menu in foodM %}
+        <button
+          class="OrderItem"
+          onClick="addToBucket(this)"
+          value={{menu['_id']}}
+        >
+          <img
+            src={{menu['icon']}}
+            alt="Your Icon"
+            width="44"
+            height="44"
+          />
+          <span>{{menu['name']}}</span>
+        </button>
+        {% endfor %}
+      </div>
+      <div class="CurrentOrder">
+        <p>Bills</p>
+        <div class="addedOrders" id="buckets"></div>
+        <div class="TotalCalculator">
+          <table class="Payme">
+            <tr>
+              <td>Sub Total</td>
+              <td id="SubTotal">$</td>
+            </tr>
+            <tr>
+              <td>Tax (21%)</td>
+              <td id="TaxCal">$</td>
+            </tr>
+            <tr style="border-top: 1px dashed black">
+              <td>Total</td>
+              <td id="TotalCalc">$</td>
+            </tr>
+          </table>
+        </div>
+        <div class="ButtonsContainer">
+          <button class="FinishOrderButtons" onClick="sendOrder()">
+            <img
+              src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/000000/external-cashier-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
+              alt="Your Icon"
+              width="44"
+              height="44"
+            />
+            <span>Cash</span>
+          </button>
+          <button class="FinishOrderButtons" onClick="sendOrder()">
+            <img
+              src="https://img.icons8.com/pastel-glyph/64/null/bank-card-front-side--v1.png"
+              alt="Your Icon"
+              width="32"
+              height="32"
+            />
+            <span>Debit Card</span>
+          </button>
+          <button class="FinishOrderButtons" onClick="sendOrder()">
+            <span>print Bills</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/app.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/socket.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/ui.js') }}"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/index.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/Catago.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/OrderedItems.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/NobodyLikesTaxs.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/sideNav.css') }}"
+  />
 </html>
