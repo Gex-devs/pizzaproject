@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from flask_cors import CORS
-import pymongo
 from proccessors import *
 from datetime import datetime
 
@@ -40,17 +39,21 @@ def clientConnected():
 
 @app.route("/")
 def entry():
-
+    #check
 
     return render_template('index.html')
 
 @app.route("/addToBucket",methods=['POST'])
 def buckets():
-    ItemID = request.get_data().decode("UTF-8")
+    Data = request.get_data().decode("UTF-8").split(":")
 
-    socketio.emit("updateBucket",CreateBucketUpdate(ItemID,foodMenuCol))
-
+    ItemID = Data[0]
+    AmountOfOrder = Data[1]
+    
+    socketio.emit("updateBucket",CreateBucketUpdate(ItemID,AmountOfOrder,foodMenuCol))
+    
     return "200"
+
 
 def pendOrder():
 

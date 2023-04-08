@@ -121,6 +121,7 @@ def OvenRecv():
 
 @app.route("/AddOrder/<ID>")
 def page(ID):
+    
     tt = foodMenu.find_one(ObjectId(ID))
     print(f"Found {(tt)}")
     pendingOrderCol.insert_one(tt)

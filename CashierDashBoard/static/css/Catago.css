@@ -1,0 +1,51 @@
+.OrderItem {
+    position: relative;
+    width: 11rem;
+    height: 8.3rem;
+    
+    background: #28282a;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    transform: scale(1.2);
+  }
+  .Orders {
+    position: fixed;
+    background-color: red;
+    align-items: flex-start;
+    width: 59.05511811rem;
+    height: 35.43307086rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .Orders > * {
+    width: calc(30% - 10rem);
+  
+    margin: 1.711992283rem;
+    transition: all 0.3s ease;
+  }
+  
+  .Orders > *:hover {
+    transform: scale(1.1);
+  }
+  
+  .Orders > *:nth-child(even) {
+    animation: newItemAdded 0.3s ease-in-out;
+  }
+  
+  @keyframes newItemAdded {
+    0% {
+      opacity: 0;
+      transform: translateX(-47.24409449%);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(11.81025236%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }

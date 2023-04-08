@@ -6,5 +6,6 @@ socket.on('connect', function () {
 });
 
 socket.on('updateBucket', function (data) {
+    console.log(data)
     UpdateOrderBucket(data)
 });

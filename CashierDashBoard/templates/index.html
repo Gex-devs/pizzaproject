@@ -1,31 +1,73 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <body>
     <div class="Holder">
-
-        <div class="Orders" id="order"> 
-            <!--Food Menu-->
-            <button class="OrderItem" onClick="addToBucket(this)" value="6427031a8ceafc25afd3477c">
-                <p>Burger</p>
-            </button>
+      <div class="Orders" id="order">
+        <!--Food Menu-->
+        <button
+          class="OrderItem"
+          onClick="addToBucket(this)"
+          value="6427031a8ceafc25afd3477c"
+        >
+          <p>Burger</p>
+        </button>
+        <button
+          class="OrderItem"
+          onClick="addToBucket(this)"
+          value="6429b2649fdd558823809535"
+        >
+          <p>Coca-cola</p>
+        </button>
+      </div>
+      <div class="CurrentOrder">
+        <p>Bills</p>
+        <div class="addedOrders" id="buckets">
+          <div data-hammer class="InsideItems">
+            <img src="https://cdn-icons-png.flaticon.com/512/877/877951.png" />
+            <div class="InsideItemsClassifier">
+              <p>Original Burger</p>
+              <p>x1</p>
+            </div>
+            <p class="InsideItemsprice">$6.66</p>
+          </div>
         </div>
-        <div class="CurrentOrder" >
-            <div class="addedOrders" id="buckets">
-                
-            </div>
-            <div class="TotalCalculator">
-
-            </div>
-            <div class="ButtonsContainer">
-
-            </div>
+        <div class="TotalCalculator">
+          <table class="Payme">
+            <tr>
+              <td>Sub Total</td>
+              <td id="SubTotal">$</td>
+            </tr>
+            <tr>
+              <td>Tax (21%)</td>
+              <td id="TaxCal">$</td>
+            </tr>
+            <tr style="border-top: 1px dashed black">
+              <td>Total</td>
+              <td id="TotalCalc">$</td>
+            </tr>
+          </table>
         </div>
+        <div class="ButtonsContainer">
+          <button class="FinishOrderButtons">
+            <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/000000/external-cashier-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png" alt="Your Icon" width="44" height="44">
+            <span>Cash</span>
+          </button> 
+          <button class="FinishOrderButtons">
+            <img src="https://img.icons8.com/pastel-glyph/64/null/bank-card-front-side--v1.png" alt="Your Icon" width="32" height="32">
+            <span>Debit Card</span>
+          </button> 
+          <button class="FinishOrderButtons">
+            <span>print Bills</span>
+          </button>          
+        </div>
+      </div>
     </div>
-</body>
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script
+  </body>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <script
     type="text/javascript"
     src="{{ url_for('static', filename = 'js/app.js') }}"
   ></script>
@@ -37,8 +79,24 @@
     type="text/javascript"
     src="{{ url_for('static', filename = 'js/ui.js') }}"
   ></script>
-<link
+  <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/index.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/Catago.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/OrderedItems.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/NobodyLikesTaxs.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/sideNav.css') }}"
   />
 </html>

@@ -1,0 +1,55 @@
+.TotalCalculator {
+  position: fixed;
+  background-color: blue;
+  display: flex;
+  width: 23rem;
+  height: 13rem;
+  margin-top: 12rem;
+}
+
+.Payme {
+  position: relative;
+  border-collapse: collapse;
+  width: 19rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Payme td {
+  background-color: transparent;
+  padding-left: 2.4rem;
+  padding-right: 1rem;
+  border: none;
+}
+
+.FinishOrderButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  width: 150px;
+  margin: 0.5rem;
+}
+
+.FinishOrderButtons img {
+  margin-bottom: 0.5rem;
+}
+
+.FinishOrderButtons span {
+  text-transform: uppercase;
+}
+.FinishOrderButtons:hover {
+  background-color: white;
+  color: green;
+  cursor: pointer;
+}
+
+.FinishOrderButtons:active {
+  transform: scale(0.95);
+}
