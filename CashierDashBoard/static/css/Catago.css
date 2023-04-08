@@ -19,6 +19,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-left: 10%;
   }
   .Orders > * {
     width: calc(30% - 10rem);
