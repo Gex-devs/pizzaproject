@@ -3,6 +3,10 @@ async function addToBucket(button) {
     let inputValue;
     const { value: ipAddress } = await Swal.fire({
         title: 'Please Specify amount',
+        imageUrl: button.querySelector('img').getAttribute('src'),
+        imageWidth: 100,
+        imageHeight: 100,
+        imageAlt: 'Custom image',
         input: 'text',
         inputLabel: 'Amount in Numbers',
         inputClass: 'text-center',
@@ -17,7 +21,7 @@ async function addToBucket(button) {
             } else {
                 inputValue = value
             }
-        }
+        },
     })
     console.log(inputValue)
     var xhr = new XMLHttpRequest();

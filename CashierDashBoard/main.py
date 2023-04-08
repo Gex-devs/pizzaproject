@@ -41,7 +41,9 @@ def clientConnected():
 def entry():
     #check
 
-    return render_template('index.html')
+    foodMenu = foodMenuCol.find()
+    
+    return render_template('index.html',foodM =foodMenu)
 
 @app.route("/addToBucket",methods=['POST'])
 def buckets():

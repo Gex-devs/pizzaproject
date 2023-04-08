@@ -5,26 +5,25 @@
       <div class="TopCatago"></div>
       <div class="Orders" id="order">
         <!--Food Menu-->
+        {% for menu in foodM %}
         <button
           class="OrderItem"
           onClick="addToBucket(this)"
-          value="6427031a8ceafc25afd3477c"
+          value={{menu['_id']}}
         >
-          <p>Burger</p>
+          <img
+            src={{menu['icon']}}
+            alt="Your Icon"
+            width="44"
+            height="44"
+          />
+          <span>{{menu['name']}}</span>
         </button>
-        <button
-          class="OrderItem"
-          onClick="addToBucket(this)"
-          value="6429b2649fdd558823809535"
-        >
-          <p>Coca-cola</p>
-        </button>
+        {% endfor %}
       </div>
       <div class="CurrentOrder">
         <p>Bills</p>
-        <div class="addedOrders" id="buckets">
-          
-        </div>
+        <div class="addedOrders" id="buckets"></div>
         <div class="TotalCalculator">
           <table class="Payme">
             <tr>

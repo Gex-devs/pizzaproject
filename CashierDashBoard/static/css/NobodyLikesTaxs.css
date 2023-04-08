@@ -53,3 +53,8 @@
 .FinishOrderButtons:active {
   transform: scale(0.95);
 }
+#my-popup .swal2-image.sweet-image-class {
+    width: 200px;
+    height: 200px;
+  }
+  
