@@ -45,6 +45,17 @@ def entry():
     
     return render_template('index.html',foodM =foodMenu)
 
+
+
+@app.route("/history")
+def history():
+  
+    order = HistoryOrderCol.find()
+    
+    return render_template('history.html',orders=order )
+
+
+
 @app.route("/addToBucket",methods=['POST'])
 def buckets():
     Data = request.get_data().decode("UTF-8").split(":")
