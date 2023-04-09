@@ -10,37 +10,55 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
-  gap: 17.24871285rem;
-  top: 4.724409449rem;
-  left: 2.362205022rem;
+  gap: 17rem;
+  top: 5rem;
+  left: 2rem;
 }
 
 .CurrentOrder {
   animation: rollIn 0.5s ease-in;
   position: fixed;
-  background: #28282a;
+  background: #19191B;
   width: 23rem;
   left: 69rem;
-  height: 38rem;
+  height: 40rem;
   border-radius: 6px;
+}
+.CurrentOrder {
+  font-family: "Inter";
+}
+
+.CurrentOrder * {
+  font-family: inherit;
 }
 
 .addedOrders {
-  overflow-x:hidden;
+  overflow-x: auto;
   position: fixed;
-  background-color: red;
   display: flex;
   width: 23rem;
   height: 10rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
-.ButtonsContainer{
+.addedOrders::-webkit-scrollbar {
+  width: 3px; /* Set the width of the scrollbar */
+}
+
+.addedOrders::-webkit-scrollbar-thumb {
+  background-color: #FF9900; /* Set the color of the thumb */
+  border-radius: 10px; /* Set the border radius of the thumb */
+}
+
+.addedOrders::-webkit-scrollbar-track {
+  background-color: #c2c2c2; /* Set the color of the track */
+}
+
+.ButtonsContainer {
   position: fixed;
-  background-color: green;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -48,4 +66,51 @@ body {
   height: 13rem;
   margin-top: 24.9rem;
 }
+.TopCatago {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 4rem;
+  width:  99.6rem;
+}
 
+.TopCatago button {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 5px;
+  background-color: #19191B;
+  color: white;
+  border: none;
+  display: flex;
+  font-size: 1.4rem;
+  justify-content: center;
+  align-items: center;
+}
+.TopCatago button:nth-child(2)::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+  background-image: url("burger-icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.TopCatago button img {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 5px;
+  
+}
+
+.TopCatago button:focus {
+  outline: none;
+}
+
+.TopCatago button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}

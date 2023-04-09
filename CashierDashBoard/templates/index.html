@@ -1,29 +1,65 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <div class="TopCatago">
+      <button onclick="filterMenu('all')">
+        <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-foods-vacation-planning-guys-trip-flaticons-lineal-color-flat-icons.png" alt="All Icon">
+        <span>All</span>
+      </button>
+      <button onclick="filterMenu('burger')">
+        <img src="https://cdn-icons-png.flaticon.com/512/877/877951.png" alt="All Icon">
+        <span>Burgers</span>
+      </button>
+      <button onclick="filterMenu('pizza')">
+        <img src="https://img.icons8.com/doodle/96/null/pizza--v1.png" alt="All Icon">
+        <span>pizza</span>
+      </button>
+      <button onclick="filterMenu('drinks')">
+        <img src="https://img.icons8.com/cotton/64/null/cola.png" alt="All Icon">
+        <span>drinks</span>
+      </button>
+      <button onclick="filterMenu('dessert')">
+        <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-ice-cream-summer-season-flaticons-lineal-color-flat-icons.png" alt="All Icon">
+        <span>dessert</span>
+      </button>
+    </div>
     <div class="Holder">
-      <div class="TopCatago"></div>
       <div class="Orders" id="order">
         <!--Food Menu-->
         {% for menu in foodM %}
-        <button
-          class="OrderItem"
-          onClick="addToBucket(this)"
-          value={{menu['_id']}}
-        >
-          <img
-            src={{menu['icon']}}
-            alt="Your Icon"
-            width="44"
-            height="44"
-          />
-          <span>{{menu['name']}}</span>
-        </button>
-        {% endfor %}
+        {% if menu['category'] == 'burger' %}
+            <button class="OrderItem burger" onClick="addToBucket(this)" value={{menu['_id']}}>
+                <img src={{menu['icon']}} alt="Your Icon" width="44" height="44" />
+                <span>{{menu['name']}}</span>
+            </button>
+        {% elif menu['category'] == 'pizza' %}
+            <button class="OrderItem pizza" onClick="addToBucket(this)" value={{menu['_id']}}>
+                <img src={{menu['icon']}} alt="Your Icon" width="44" height="44" />
+                <span>{{menu['name']}}</span>
+            </button>
+        {% elif menu['category'] == 'drinks' %}
+            <button class="OrderItem drinks" onClick="addToBucket(this)" value={{menu['_id']}}>
+                <img src={{menu['icon']}} alt="Your Icon" width="44" height="44" />
+                <span>{{menu['name']}}</span>
+            </button>
+        {% elif menu['category'] == 'dessert' %}
+            <button class="OrderItem dessert" onClick="addToBucket(this)" value={{menu['_id']}}>
+                <img src={{menu['icon']}} alt="Your Icon" width="44" height="44" />
+                <span>{{menu['name']}}</span>
+            </button>
+        {% else %}
+            <button class="OrderItem other" onClick="addToBucket(this)" value={{menu['_id']}}>
+                <img src={{menu['icon']}} alt="Your Icon" width="44" height="44" />
+                <span>{{menu['name']}}</span>
+            </button>
+        {% endif %}
+    {% endfor %}
       </div>
       <div class="CurrentOrder">
-        <p>Bills</p>
-        <div class="addedOrders" id="buckets"></div>
+        <p style="font-size: 24px;color:white;height:1mm;padding-left:3rem;">Bills</p>
+        <div class="addedOrders" id="buckets">
+          
+        </div>
         <div class="TotalCalculator">
           <table class="Payme">
             <tr>
@@ -43,7 +79,7 @@
         <div class="ButtonsContainer">
           <button class="FinishOrderButtons" onClick="sendOrder()">
             <img
-              src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/000000/external-cashier-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
+              src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/FFFFFF/external-cashier-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
               alt="Your Icon"
               width="44"
               height="44"
@@ -52,14 +88,14 @@
           </button>
           <button class="FinishOrderButtons" onClick="sendOrder()">
             <img
-              src="https://img.icons8.com/pastel-glyph/64/null/bank-card-front-side--v1.png"
+              src="https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/66/FFFFFF/external-credit-card-digital-marketing-smashingstocks-glyph-smashing-stocks.png"
               alt="Your Icon"
               width="32"
               height="32"
             />
             <span>Debit Card</span>
           </button>
-          <button class="FinishOrderButtons" onClick="sendOrder()">
+          <button class="FinishOrderButtons printBills" onClick="sendOrder()">
             <span>print Bills</span>
           </button>
         </div>
@@ -102,4 +138,8 @@
     rel="stylesheet"
     href="{{ url_for('static', filename='css/sideNav.css') }}"
   />
+  <link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+/>
 </html>

@@ -12,6 +12,7 @@ function UpdateOrderBucket(Data) {
     let buckets = document.getElementById("buckets")
     let image = document.createElement("img")
     image.src = Data.icon
+
     let bucketContainer = document.createElement("div")
     bucketContainer.classList.add("InsideItems")
     bucketContainer.dataset.value = Data._id
@@ -20,13 +21,19 @@ function UpdateOrderBucket(Data) {
     let InsideContainer = document.createElement("div")
     InsideContainer.classList.add("InsideItemsClassifiedr")
     let itemName = document.createElement("p")
+    itemName.style.color = "white";
+    itemName.classList.add("itemName")
     itemName.innerHTML = Data.name
+
     let AmountOfItem = document.createElement("p")
+    AmountOfItem.style.color = "#898686";
+    AmountOfItem.classList.add("amountInInt")
     AmountOfItem.innerHTML = "x" + Data.TotalAmount
 
 
     let price = document.createElement("p")
     price.classList.add("InsideItemsprice")
+    price.style.color = "#898686";
     price.innerHTML = Data.TotalPrice + "$"
 
     InsideContainer.appendChild(itemName)

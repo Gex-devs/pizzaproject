@@ -74,3 +74,21 @@ function sendOrder() {
         }
     })
 }
+
+// Filter menu items based on category
+function filterMenu(category) {
+    console.log("clicked")
+    // Get all menu items
+    const menuItems = document.querySelectorAll('.OrderItem');
+  
+    // Show or hide each menu item based on category
+    menuItems.forEach(item => {
+        if (category === 'all') {
+            item.style.display = 'inline-block';
+        } else if (item.classList.contains(category)) {
+            item.style.display = 'inline-block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
