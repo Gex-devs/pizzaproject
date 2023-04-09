@@ -1,0 +1,31 @@
+.InsideItems {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding-left: 1rem;
+  width: 100%;
+  height: 4rem;
+  gap: 0.5rem;
+  background-color: aqua;
+}
+
+.InsideItemsClassifier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+.InsideItems img {
+  width: 4rem;
+  height: 4rem;
+}
+.InsideItemsClassifier p {
+  margin: 0;
+}
+
+.InsideItemsprice {
+  position: relative;
+  margin-top: 3rem;
+  margin-left: 7rem;
+}
+

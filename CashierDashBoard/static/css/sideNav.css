@@ -1,0 +1,42 @@
+nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  left: 0%;
+}
+
+ul {
+  position: absolute;
+  left: 0;
+  list-style-type: none;
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  top: 10%;
+}
+li {
+  margin: 70px 20px 100px;
+}
+
+li a {
+  display: block;
+  color: rgb(245, 4, 4);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #63d363;
+}
+
+.rectangle{
+  position: absolute;
+  width: 70px;
+  height: 60px;
+  background-color:#FF5656;
+  border-radius: 6px;
+}
+
