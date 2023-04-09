@@ -11,35 +11,28 @@
       </ul>
     </nav>
     <div class="Holder">
+      <div class="TopCatago"></div>
       <div class="Orders" id="order">
         <!--Food Menu-->
+        {% for menu in foodM %}
         <button
           class="OrderItem"
           onClick="addToBucket(this)"
-          value="6427031a8ceafc25afd3477c"
+          value={{menu['_id']}}
         >
-          <p>Burger</p>
+          <img
+            src={{menu['icon']}}
+            alt="Your Icon"
+            width="44"
+            height="44"
+          />
+          <span>{{menu['name']}}</span>
         </button>
-        <button
-          class="OrderItem"
-          onClick="addToBucket(this)"
-          value="6429b2649fdd558823809535"
-        >
-          <p>Coca-cola</p>
-        </button>
+        {% endfor %}
       </div>
       <div class="CurrentOrder">
         <p>Bills</p>
-        <div class="addedOrders" id="buckets">
-          <div data-hammer class="InsideItems">
-            <img src="https://cdn-icons-png.flaticon.com/512/877/877951.png" />
-            <div class="InsideItemsClassifier">
-              <p>Original Burger</p>
-              <p>x1</p>
-            </div>
-            <p class="InsideItemsprice">$6.66</p>
-          </div>
-        </div>
+        <div class="addedOrders" id="buckets"></div>
         <div class="TotalCalculator">
           <table class="Payme">
             <tr>
@@ -57,17 +50,27 @@
           </table>
         </div>
         <div class="ButtonsContainer">
-          <button class="FinishOrderButtons">
-            <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/000000/external-cashier-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png" alt="Your Icon" width="44" height="44">
+          <button class="FinishOrderButtons" onClick="sendOrder()">
+            <img
+              src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/000000/external-cashier-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
+              alt="Your Icon"
+              width="44"
+              height="44"
+            />
             <span>Cash</span>
-          </button> 
-          <button class="FinishOrderButtons">
-            <img src="https://img.icons8.com/pastel-glyph/64/null/bank-card-front-side--v1.png" alt="Your Icon" width="32" height="32">
+          </button>
+          <button class="FinishOrderButtons" onClick="sendOrder()">
+            <img
+              src="https://img.icons8.com/pastel-glyph/64/null/bank-card-front-side--v1.png"
+              alt="Your Icon"
+              width="32"
+              height="32"
+            />
             <span>Debit Card</span>
-          </button> 
-          <button class="FinishOrderButtons">
+          </button>
+          <button class="FinishOrderButtons" onClick="sendOrder()">
             <span>print Bills</span>
-          </button>          
+          </button>
         </div>
       </div>
     </div>

@@ -41,7 +41,9 @@ def clientConnected():
 def entry():
     #check
 
-    return render_template('index.html')
+    foodMenu = foodMenuCol.find()
+    
+    return render_template('index.html',foodM =foodMenu)
 
 @app.route("/addToBucket",methods=['POST'])
 def buckets():
@@ -54,6 +56,14 @@ def buckets():
     
     return "200"
 
+@app.route("/pendOrder",methods=['POST'])
+def pendOrder():
+
+    Data = request.get_data().decode("UTF-8")
+
+    addTopendingOrder(Data,pendingOrderCol)
+
+    return "200"
 
 def pendOrder():
 

@@ -2,7 +2,7 @@
 Ui_Tax = document.getElementById("TaxCal")
 Ui_Subtotal = document.getElementById("SubTotal")
 Ui_CartTotal = document.getElementById("TotalCalc")
-
+Added_orders = document.getElementById("buckets")
 
 let cartTotal = 0;
 let Subtotal = 0;
@@ -14,6 +14,7 @@ function UpdateOrderBucket(Data) {
     image.src = Data.icon
     let bucketContainer = document.createElement("div")
     bucketContainer.classList.add("InsideItems")
+    bucketContainer.dataset.value = Data._id
 
 
     let InsideContainer = document.createElement("div")
@@ -55,7 +56,16 @@ function updateTotal(Data) {
 
 // Reset The Cashier UI 
 function resetUi() {
-    cartTotal = 0
+    cartTotal = 0;
+    Subtotal = 0;
+    TaxTotal = 0;
+
+    Ui_Tax.innerHTML = "$"
+    Ui_Subtotal.innerHTML = "$"
+    Ui_CartTotal.innerHTML = "$"
+
+    Added_orders.innerHTML = ""
+
 }
 
 // Add Feature if I have time
