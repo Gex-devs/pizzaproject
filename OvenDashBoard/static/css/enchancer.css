@@ -1,5 +1,3 @@
-
-
 @keyframes rollIn {
   0% {
     transform: scaleX(0);
@@ -33,7 +31,7 @@
   align-self: center;
   padding-left: 10px;
   background: #ffffff;
-
+  border-radius: 6px;
 }
 
 .OrderInsideCurrentOrder {
@@ -149,6 +147,8 @@
   font-weight: 400;
   font-size: 55px;
   line-height: 24px;
+  text-align: center;
+  margin-top: 5%;
 }
 
 /*sfaf*/
