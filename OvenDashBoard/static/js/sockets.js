@@ -16,6 +16,11 @@ socket.on('start_cooking', function (data) {
     startCooking(data);
 });
 
+
+socket.on('done_cooking', function (data) {
+    // Done cooking
+});
+
 socket.on('new_order', function (data) {
     console.log("hmm")
     appendOrder(data)
