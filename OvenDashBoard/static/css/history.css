@@ -1,6 +1,7 @@
 body {
   background: #35333b;
   height: 1000px;
+  overflow-x: hidden;
   
   
 }
@@ -16,7 +17,7 @@ body {
   border-radius: 6px;
 }
 .Holder {
-  position: fixed;
+  position: relative;
   max-width: 100%;
   height: 118.11025rem;
   overflow: hidden;
@@ -29,7 +30,7 @@ body {
   left: 2.362205022rem;
 }
 .HistoryOrders {
-  position: fixed;
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
   align-items: flex-start;
