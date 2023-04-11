@@ -29,13 +29,12 @@
 .Orders {
   position: fixed;
   align-items: flex-start;
-  width: 59.05511811rem;
+  width: 58.055118rem;
   height: 35.43307086rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding-left: 75px;
 
 }
 

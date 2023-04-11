@@ -20,15 +20,16 @@ async function addToBucket(button) {
                 return 'You need to write something!'
             } else {
                 inputValue = value
+                console.log(inputValue)
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'http://127.0.0.1:5000/addToBucket', true);
+                xhr.setRequestHeader('Content-Type', 'text/plain');
+                var data = button.value + ":" + inputValue;
+                xhr.send(data);
             }
         },
     })
-    console.log(inputValue)
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://127.0.0.1:5000/addToBucket', true);
-    xhr.setRequestHeader('Content-Type', 'text/plain');
-    var data = button.value + ":" + inputValue;
-    xhr.send(data);
+
 }
 
 
@@ -80,7 +81,7 @@ function filterMenu(category) {
     console.log("clicked")
     // Get all menu items
     const menuItems = document.querySelectorAll('.OrderItem');
-  
+
     // Show or hide each menu item based on category
     menuItems.forEach(item => {
         if (category === 'all') {

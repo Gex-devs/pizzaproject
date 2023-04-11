@@ -11,7 +11,7 @@ body {
 
 .Holder {
   position: relative;
-  max-width: 100%;
+  max-width: 99.6rem;
   height: 118.11025rem;
   overflow: hidden;
   overflow-y: hidden;
@@ -19,15 +19,15 @@ body {
   display: flex;
   flex-direction: row;
   gap: 17rem;
-  top: 5rem;
+  top: 1rem;
 }
 
 .CurrentOrder {
   animation: rollIn 0.5s ease-in;
-  position: fixed;
+  position: relative;
   background: #19191B;
   width: 23rem;
-  left: 88.1rem;
+  left: 52.1rem;
   height: 40rem;
   border-radius: 6px;
 }
