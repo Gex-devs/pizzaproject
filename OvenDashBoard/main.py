@@ -117,7 +117,7 @@ def OvenRecv():
     # socketio.emit('start_cooking',CalculatedETA) Calculate ETA
     socketio.emit('start_cooking', ran * 60  )
       
-    return ran
+    return str(ran)
 
 @app.route("/AddOrder/<ID>")
 def page(ID):

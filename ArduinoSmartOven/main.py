@@ -46,7 +46,7 @@ def loop():
 def startTimer():
     global number
     r = requests.get("http://127.0.0.1:5000/StartCooking")
-    eta = r.status_code
+    eta = r.content
     number = eta
     print(eta)
     while number != 0:
