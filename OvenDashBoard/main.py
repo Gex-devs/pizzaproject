@@ -1,6 +1,6 @@
 from bson import ObjectId
 from flask import Flask, render_template, jsonify, request
-import time
+import time,random
 import os
 import logging
 from dotenv import load_dotenv
@@ -111,13 +111,13 @@ def testendpoint():
     return "200"
 
 
-@app.route("/StartCooking")
+@app.route("/StartCooking",methods = ['GET'])
 def OvenRecv():
-
+    ran = random.randint(10,20)
     # socketio.emit('start_cooking',CalculatedETA) Calculate ETA
-    socketio.emit('start_cooking', "200")
-    return "200"
-
+    socketio.emit('start_cooking', ran * 60  )
+      
+    return ran
 
 @app.route("/AddOrder/<ID>")
 def page(ID):

@@ -1,56 +1,69 @@
-from pyfirmata import Arduino, util
-import time
+import time, sys
+from fhict_cb_01.CustomPymata4 import CustomPymata4
 import requests
-
+#-----------
 # Constants
-led_pin = 2 # Analog pin for Led Pin
-button_pin = 13 # Anolog pin for button
+#-----------
+BUTTON1 = 8
 
+number = 0
+#------------------------------
+# Initialized global variables
+#------------------------------
+level = 1
+prevLevel = 0
 
+#-----------
+# functions
+#-----------
+def ButtonChanged(data):
+    global level
+    level = data[2] # get the level
+    # Keep the callback function short and fast.
+    # Let loop() do the 'expensive' tasks.
 
-
-# Functions
 def setup():
-    """Initialize the board and set the modes of the pins used for the sensors"""
-    global board, button, led
-    board = Arduino('COM4')
-    it = util.Iterator(board)
-    it.start()
+    global board
+    board = CustomPymata4(com_port = "COM3")
+    board.set_pin_mode_digital_input_pullup(BUTTON1, callback = ButtonChanged)
     board.displayOn()
-   
-    board.set_pin_mode_analog_input(led_pin)
-    button = board.get_pin('d:{}:i'.format(button_pin))
-    led = board.get_pin('d:{}:o'.format(led_pin))
+    # Note: Getting button level via callback ButtonChanged() is more 
+    #       accurate for Firmata. When button is pressed or release,
+    #       the ButtonChanged() function is called and this sets the 
+    #       level variable.
 
-def get_time_from_database():
-    
-    return int(time.time())
-
-def send_time_data_to_server(time_data):
-    payload = {'time': time_data}
-    response = requests.post(url, json=payload)
-    print(response.content)
-
-
-
-
-# Flask server information
-url = 'http://127.0.0.1:5000/estimatedTime' 
-
-# Initialize board and pins
-setup()
-
-# Main loop
-while True:
-    if button.read() == 1:
-        led.write(1)
-        time_data = get_time_from_database()
-        send_time_data_to_server(time_data)
-        led.write(0)
+def loop():
+    global prevLevel
+    # Only print button level when level changed.
+    if (prevLevel != level):
+        # Lets respond on button level change.
+        print(level)
+        startTimer()
+        prevLevel = level
+    else:
+        prevLevel = 1 
+        
+def startTimer():
+    global number
+    r = requests.get("http://127.0.0.1:5000/StartCooking")
+    eta = r.status_code
+    number = eta
+    print(eta)
+    while number != 0:
+        board.displayShow(eta) 
+        print('yo')
+        number -= 1
+        if number > 9999:
+            number = 0
         time.sleep(1)
-## send a request 30sec or 1 min
-
-# based on that timer
-
-
-## Expection. When it doesn't time...Order is not ready.
+#--------------
+# main program
+#--------------
+setup()
+while True:
+    try:
+        loop()
+    except KeyboardInterrupt: # crtl+C
+        print ('shutdown')
+        board.shutdown()
+        sys.exit(0)  

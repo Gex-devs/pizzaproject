@@ -13,7 +13,7 @@ socket.on('update', function (value) {
 })
 
 socket.on('start_cooking', function (data) {
-    startCooking();
+    startCooking(data);
 });
 
 socket.on('new_order', function (data) {
