@@ -36,7 +36,7 @@ def timer():
       board.digital_pin_write(REDLEDPIN, 1)
       board.displayShow(number) 
       number -= 1
-      time.sleep(0.1)
+      time.sleep(1)
     if number == -1:
             board.digital_pin_write(GREENLEDPIN, 1)
             breakpoint
@@ -56,6 +56,8 @@ def loop():
 
 
     if (prevLevel != level):
+        board.digital_pin_write(GREENLEDPIN, 0)
+        number = 60 
         
         timer()
         
