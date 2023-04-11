@@ -1,11 +1,5 @@
-from pymongo import MongoClient
+import json
 
+f = {'$oid': '6429b2649fdd558823809535'}
 
-client = MongoClient("mongodb+srv://test:test123@cluster0.kebg03f.mongodb.net/?retryWrites=true&w=majority")
-
-database = client['PizzaProject']
-
-OrderCol = database['Orders']
-
-
-OrderCol.insert_one({'New_data':'Datafound'})
+print(f['$oid'])

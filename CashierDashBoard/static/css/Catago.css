@@ -29,7 +29,11 @@
 .Orders {
   position: fixed;
   align-items: flex-start;
+<<<<<<< HEAD
   width: 52rem;
+=======
+  width: 58.055118rem;
+>>>>>>> main
   height: 35.43307086rem;
   display: flex;
   flex-direction: row;

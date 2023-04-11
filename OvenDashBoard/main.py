@@ -1,6 +1,6 @@
 from bson import ObjectId
 from flask import Flask, render_template, jsonify, request
-import time
+import time,random
 import os
 import logging
 from dotenv import load_dotenv
@@ -23,7 +23,7 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 
 CORS(app=app)
 
-use_database = os.getenv("USE_DATABASE")
+
 
 
 # MongoDB Thread
@@ -57,27 +57,19 @@ def HistoryOrderListner():
         logging.error('PyMongoErrr')
 
 
-# Mongo DB config
-if use_database == "1":
 
-    client = MongoClient(os.getenv("MONGODB_ADDRESS"))
-
-    db = client['pizzaHouse']
-
-    pendingOrderCol = db['pendingOrder']
-    HistoryOrderCol = db['History']
-
-    foodMenu = db['foodMenu']
-    accounts = db['accounts']
-
-    PendingOrderThread = threading.Thread(target=pendingOrderListner)
-    PendingOrderThread.setDaemon(True)
-
-    HistoryOrderThread = threading.Thread(target=HistoryOrderListner)
-    HistoryOrderThread.setDaemon(True)
-
-    HistoryOrderThread.start()
-    PendingOrderThread.start()
+client = MongoClient(os.getenv("MONGODB_ADDRESS"))
+db = client['pizzaHouse']
+pendingOrderCol = db['pendingOrder']
+HistoryOrderCol = db['History']
+foodMenu = db['foodMenu']
+accounts = db['accounts']
+PendingOrderThread = threading.Thread(target=pendingOrderListner)
+PendingOrderThread.setDaemon(True)
+HistoryOrderThread = threading.Thread(target=HistoryOrderListner)
+HistoryOrderThread.setDaemon(True)
+HistoryOrderThread.start()
+PendingOrderThread.start()
 
 
 @socketio.on('connect')
@@ -119,16 +111,17 @@ def testendpoint():
     return "200"
 
 
-@app.route("/StartCooking")
+@app.route("/StartCooking",methods = ['GET'])
 def OvenRecv():
-
+    ran = random.randint(10,20)
     # socketio.emit('start_cooking',CalculatedETA) Calculate ETA
-    socketio.emit('start_cooking', "200")
-    return "200"
-
+    socketio.emit('start_cooking', ran * 60  )
+      
+    return str(ran)
 
 @app.route("/AddOrder/<ID>")
 def page(ID):
+    
     tt = foodMenu.find_one(ObjectId(ID))
     print(f"Found {(tt)}")
     pendingOrderCol.insert_one(tt)

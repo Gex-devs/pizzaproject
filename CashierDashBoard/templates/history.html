@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <nav>
+      <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/041f3c23-a9af-41c9-9548-36c3d2028351/d4lbtrw-7fa5d8be-7000-4d19-a70a-072e222a2bce.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA0MWYzYzIzLWE5YWYtNDFjOS05NTQ4LTM2YzNkMjAyODM1MVwvZDRsYnRydy03ZmE1ZDhiZS03MDAwLTRkMTktYTcwYS0wNzJlMjIyYTJiY2UucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.YdsNeX6qftWXkN5H_Y717Jv8lqymnFm2oqrywPTHuTI" width="200" >
+      <ul>
+        <li><button class="rectangle" onclick="location.href='/'"><img src="https://www.shareicon.net/data/128x128/2016/01/09/700533_fork_512x512.png" width="50"></button></li>
+        <li><button class="rectangle" onclick="location.href=''"><img src="https://free-icon-rainbow.com/i/icon_02056/icon_020560_256.png" width="50"></button></li>
+        <li><button class="rectangle" onclick="location.href='/history'"><img src="https://cdn-icons-png.flaticon.com/512/109/109613.png" width="50"></button></li>
+        <li><button class="rectangle" onclick="location.href='#'"><img src="https://cdn-icons-png.flaticon.com/512/126/126472.png" width="50"></button></li>
+      </ul>
+    </nav>
+    <div class="main">
+        <div class="HisHolder">
+            <div class="HistoryOrders" id="historyorder">
+              {% for order in orders %}
+              <div class="HisOrderItem">
+                <time>10:30</time>
+                <div class="HisInsideOrders">
+                  {% for item in order['OrderItems'].values() %}
+                  <div class="HisOrderInsideContainer">
+                    <p class="OrderText">{{ item['Name'] }}</p>
+                    <p class="OrderNumber">x{{ item['AmountOfOrder'] }}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+                <p
+                  class="Status"
+                  value="{{ order._id }}"
+                  {% if order['Status'] == "completed" %}
+                  style="background-color: green;"
+                  {% else %}
+                  style="background-color: red;"
+                  {% endif %}
+                >
+                  {{order['Status']}}
+                </p>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+    </div>
+  </body>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/app.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/socket.js') }}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'js/ui.js') }}"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/index.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/Catago.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/OrderedItems.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/NobodyLikesTaxs.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/history.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/sideNav.css') }}"
+  />
+  <link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+/>
+</html>

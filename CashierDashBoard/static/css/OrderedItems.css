@@ -1,0 +1,38 @@
+.InsideItems {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  transform: scale(0.9);
+}
+
+.InsideItems img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.InsideItemsClassifier {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+}
+.itemName {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.amountInInt {
+  font-size: 26px;
+  margin: 0;
+}
+
+.InsideItemsprice {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  margin-left: 4rem;
+  text-align: right;
+}
+

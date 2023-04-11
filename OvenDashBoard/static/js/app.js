@@ -20,7 +20,7 @@ function startCooking(ETA) {
     const timerSeconds = document.querySelector('.timer-seconds');
 
     // Set the initial time
-    let totalTime = 60; // 1 minutes in seconds
+    let totalTime = ETA; // 1 minutes in seconds
     let remainingTime = totalTime;
 
 
