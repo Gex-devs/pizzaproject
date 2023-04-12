@@ -1,7 +1,7 @@
 from flask import Flask,render_template
 from bson import ObjectId
 from flask import Flask, render_template, jsonify, request
-import time
+import pymongo
 import os
 import logging
 from dotenv import load_dotenv
@@ -9,7 +9,7 @@ from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from flask_cors import CORS
 from proccessors import *
-from datetime import datetime
+import threading
 
 # load local env
 load_dotenv()
@@ -51,7 +51,6 @@ def entry():
 def history():
   
     order = HistoryOrderCol.find()
-    
     return render_template('history.html',orders=order )
 
 
@@ -76,9 +75,24 @@ def pendOrder():
 
     return "200"
 
-def pendOrder():
+# MongoDB Thread
+def HistoryListner():
 
-    print("Hey")
+    try:
+        with HistoryOrderCol.watch(
+                [{'$match': {'operationType': 'insert'}}]) as stream:
+            for insert_change in stream:
+                socketio.emit("updateNoti","updateNotification")
+    except pymongo.errors.PyMongoError:
+        # The ChangeStream encountered an unrecoverable error or the
+        # resume attempt failed to recreate the cursor.
+        logging.error('PyMongoErrr')
+
+
+thread = threading.Thread(target=HistoryListner)
+thread.daemon = True
+thread.start()
+
 
 if __name__ == '__main__':
-    socketio.run(host="0.0.0.0", app=app, debug=True)
+    socketio.run(host="0.0.0.0", port=5000,app=app, debug=True)

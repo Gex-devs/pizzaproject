@@ -53,7 +53,7 @@ def CreatStartOrder(OrderId, MongodbColpendingOrder:Collection,MongodbColFoodMen
     for item_name, item_info in Order["OrderItems"].items():
         print(item_info['Item_id'])
     
-        tt = MongodbColFoodMenu.find_one(ObjectId(item_info['Item_id']['$oid']))
+        tt = MongodbColFoodMenu.find_one(ObjectId(item_info['Item_id']))
         item = {'Item_id': str(item_info['Item_id']), 'Item_name': tt['name'],
                 'AmountOfOrder': item_info['AmountOfOrder'], 'Price': tt['price']}
         order_items[item_name] = item

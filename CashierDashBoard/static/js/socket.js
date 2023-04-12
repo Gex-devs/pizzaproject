@@ -9,3 +9,8 @@ socket.on('updateBucket', function (data) {
     console.log(data)
     UpdateOrderBucket(data)
 });
+
+socket.on('updateNoti', function (data) {
+    console.log(data)
+    updateNotificationCount()
+});

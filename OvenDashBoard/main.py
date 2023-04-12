@@ -32,7 +32,7 @@ def pendingOrderListner():
         with pendingOrderCol.watch(
                 [{'$match': {'operationType': 'insert'}}]) as stream:
             for insert_change in stream:
-                #print("New Order Added")
+                print(insert_change)
                 print("New Order Arrived")
                 socketio.emit('new_order', CreatOrderForFront_end(insert_change, foodMenu))
     except pymongo.errors.PyMongoError:
@@ -68,6 +68,7 @@ PendingOrderThread = threading.Thread(target=pendingOrderListner)
 PendingOrderThread.setDaemon(True)
 HistoryOrderThread = threading.Thread(target=HistoryOrderListner)
 HistoryOrderThread.setDaemon(True)
+
 HistoryOrderThread.start()
 PendingOrderThread.start()
 
@@ -120,13 +121,12 @@ def OvenRecv():
     return str(ran)
 
 
-@app.route("/StartCooking",methods = ['GET'])
-def OvenRecv():
+@app.route("/DoneCooking",methods = ['GET'])
+def OvenDone():
     # socketio.emit('start_cooking',CalculatedETA) Calculate ETA
     socketio.emit('done_cooking', "done cooking"  )
       
     return "200"
-
 
 
 @app.route("/AddOrder/<ID>")
@@ -150,4 +150,4 @@ def startOrder():
 
 
 if __name__ == '__main__':
-    socketio.run(host="0.0.0.0", app=app, debug=True)
+    socketio.run(host="0.0.0.0", port=5050,app=app, debug=True)

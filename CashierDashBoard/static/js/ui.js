@@ -4,6 +4,8 @@ Ui_Subtotal = document.getElementById("SubTotal")
 Ui_CartTotal = document.getElementById("TotalCalc")
 Added_orders = document.getElementById("buckets")
 
+notificationBadge = document.getElementById("notification")
+
 let cartTotal = 0;
 let Subtotal = 0;
 let TaxTotal = 0;
@@ -75,6 +77,11 @@ function resetUi() {
 
 }
 
+function updateNotificationCount(){
+    new_Value = parseInt(notificationBadge.innerHTML) + 1
+    notificationBadge.innerHTML = new_Value
+    notificationBadge.style.display = "inline"
+}
 // Add Feature if I have time
 /*
 var swipeableItems = document.querySelectorAll('[data-hammer]');

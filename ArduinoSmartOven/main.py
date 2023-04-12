@@ -1,5 +1,6 @@
 import time, sys
 from fhict_cb_01.CustomPymata4 import CustomPymata4
+import requests
 
 #-----------
 # Constants
@@ -9,7 +10,7 @@ prevLevel = 0
 BUTTON1PIN = 8
 REDLEDPIN = 4
 GREENLEDPIN = 5
-number = 60
+number = 0
 
 def ButtonChanged(data):
     global level
@@ -39,7 +40,8 @@ def timer():
       time.sleep(1)
     if number == -1:
             board.digital_pin_write(GREENLEDPIN, 1)
-            breakpoint
+            r = requests.get("http://127.0.0.1:5000/DoneCooking")
+            #breakpoint
         
     
     else:
@@ -58,7 +60,7 @@ def loop():
     if (prevLevel != level):
         board.digital_pin_write(GREENLEDPIN, 0)
         number = 60 
-        
+        number = requests.get("http://127.0.0.1:5000/StartCooking")
         timer()
         
         time.sleep(0.01) # Give Firmata some time to handle protocol.
