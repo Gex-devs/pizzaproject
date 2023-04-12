@@ -35,10 +35,9 @@ def pendingOrderListner():
                 print(insert_change)
                 print("New Order Arrived")
                 socketio.emit('new_order', CreatOrderForFront_end(insert_change, foodMenu))
-    except pymongo.errors.PyMongoError:
-        # The ChangeStream encountered an unrecoverable error or the
-        # resume attempt failed to recreate the cursor.
-        logging.error('PyMongoErrr')
+    except Exception as e:
+        print(e)
+        
 
 # MongoDB Thread
 

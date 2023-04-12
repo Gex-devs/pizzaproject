@@ -1,23 +1,25 @@
-from pymongo import MongoClient
-import threading
+from bson.objectid import ObjectId
+import json
 
-client = MongoClient("mongodb+srv://test:test123@cluster0.kebg03f.mongodb.net/?retryWrites=true&w=majority")
+data = {
+    "OrderItems": {
+        "Item1": {
+            "Item_id": "6427031a8ceafc25afd3477c",
+            "Name": "Original Burger",
+            "AmountOfOrder": 1
+        },
+        "Item2": {
+            "Item_id": "6435399dc036c38d8a5d6276",
+            "Name": "bacon cheese Burger",
+            "AmountOfOrder": 1
+        }
+    }
+}
+print(type(data))
+# Loop through each item in OrderItems and convert its Item_id field to an ObjectId
+for item in data['OrderItems']:
+    item_id = data['OrderItems'][item]['Item_id']
+    data['OrderItems'][item]['Item_id'] = ObjectId(item_id)
 
-database = client['PizzaProject']
-
-OrderCol = database['Orders']
-
-
-Listner = OrderCol.watch()
-
-def TheEventListner():
-    for event in Listner:
-        print(event)
-
-
-thread = threading.Thread(target=TheEventListner)
-#thread.setDaemon(True)
-thread.start()
-
-
-print("Here")
+# Print out the modified dictionary
+print(json.dumps(data, default=str))

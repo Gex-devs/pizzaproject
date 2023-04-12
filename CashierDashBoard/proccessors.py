@@ -22,17 +22,14 @@ def CreateBucketUpdate(ID:str,AmountOfOrder,foodMenuCol:Collection):
     return Data
 
 
-def update_oid(data):
-    if isinstance(data, dict):
-        for key, value in data.items():
-            if isinstance(value, dict):
-                update_oid(value)
-            elif key == "$oid":
-                data[key] = ObjectId(value)
-    return data
 
 def addTopendingOrder(data, pendingOrderCol:Collection):
-    data = update_oid(data)
     data = json.loads(data)
+
+    ## Changing the string ID to Object ID for mongodb
+    for item in data['OrderItems']:
+        item_id = data['OrderItems'][item]['Item_id']
+        data['OrderItems'][item]['Item_id'] = ObjectId(item_id)
+    print(json.dumps(data, default=str))
     pendingOrderCol.insert_one(data)
-    return data
+

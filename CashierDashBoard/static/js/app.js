@@ -58,7 +58,7 @@ function sendOrder() {
                 const price = item.querySelector('.InsideItemsprice').textContent;
 
                 const itemId = { "$oid": itemValue };
-                const itemData = { Item_id: itemId, Name: name, AmountOfOrder: parseInt(quantity.slice(1)) };
+                const itemData = { Item_id: itemValue, Name: name, AmountOfOrder: parseInt(quantity.slice(1)) };
 
                 const itemName = "Item" + counter;
                 orderItems[itemName] = itemData;
