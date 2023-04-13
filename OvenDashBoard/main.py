@@ -115,9 +115,9 @@ def testendpoint():
 def OvenRecv():
     ran = random.randint(10,20)
     # socketio.emit('start_cooking',CalculatedETA) Calculate ETA
-    socketio.emit('start_cooking', ran * 60  )
+    socketio.emit('start_cooking', 10  )
       
-    return str(ran)
+    return str(6)
 
 
 @app.route("/DoneCooking",methods = ['GET'])

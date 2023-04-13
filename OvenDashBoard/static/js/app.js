@@ -13,22 +13,23 @@ function startCooking(ETA) {
         console.log("Buttons not found")
     }
 
-
+    // Create Timer Ui
     createTimer("01");
+
     // Get the timer elements
     const timerMinutes = document.querySelector('.timer-minutes');
     const timerSeconds = document.querySelector('.timer-seconds');
 
     // Set the initial time
-    let totalTime = ETA; // 1 minutes in seconds
+    let totalTime = ETA;
     let remainingTime = totalTime;
 
 
     // Update the timer every second
     const intervalId = setInterval(() => {
         // Calculate the remaining minutes and seconds
-        const minutes = Math.floor(remainingTime / 60);
-        const seconds = remainingTime % 60;
+        const minutes = Math.floor(60 / remainingTime);
+        const seconds = 60 % remainingTime;
 
         // Update the timer display
         timerMinutes.textContent = minutes < 10 ? `0${minutes}` : minutes;
@@ -37,10 +38,10 @@ function startCooking(ETA) {
         // Stop the timer when it reaches zero
         if (remainingTime === 0) {
             clearInterval(intervalId);
-            ProcessOrder(CurrentOrderButton.value,true)
+            ProcessOrder(CurrentOrderButton.value, true)
             const orderItem = CurrentOrderButton.closest('.OrderItem');
             orderItem.remove();
-            document.getElementById("currentOrder").innerHTML=""
+            document.getElementById("currentOrder").innerHTML = ""
             Swal.fire({
                 icon: 'success',
                 title: 'Order is Ready',
@@ -66,7 +67,7 @@ function CurrentOrderUpdate(items) {
     const time_log = document.createElement('time')
     time_log.classList.add('log_timer')
     // Convert Log time into minutes 
-    
+
 
 
     const insideOrders = document.createElement('div');
@@ -117,7 +118,7 @@ function CurrentOrderUpdate(items) {
     cancelButton.classList.add("CurrentOrderFirstButton");
     cancelButton.textContent = "CANCEL ORDER";
     cancelButton.value = order_id;
-    cancelButton.onclick=()=>{cancelOrder(cancelButton.value)}
+    cancelButton.onclick = () => { cancelOrder(cancelButton.value) }
 
     const waitingButton = document.createElement("p");
     waitingButton.classList.add("CurrentOrderSecondButton");
@@ -135,22 +136,22 @@ let CurrentOrderButton;
 
 function startOrder(button) {
     CurrentOrderButton = button
-    if(document.getElementById("currentOrder").innerHTML !== ""){
+    if (document.getElementById("currentOrder").innerHTML !== "") {
         swal({
             icon: 'error',
             title: 'Oops...',
             text: 'Order is Already in progress',
             footer: '<a href="">Why do I have this issue?</a>'
         })
-    }else{
+    } else {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://127.0.0.1:5050/StartOrder', true);
-    // set the content-type header to indicate that we're sending plain text data
+        // set the content-type header to indicate that we're sending plain text data
         xhr.setRequestHeader('Content-Type', 'text/plain');
-    //var data = button.value;
+        //var data = button.value;
         var data = button.value;
         console.log(data)
-    // send the POST request with the string data
+        // send the POST request with the string data
         xhr.send(data);
         button.style.backgroundColor = 'red';
     }
@@ -217,7 +218,7 @@ function appendOrder(pendingOrder) {
     } catch (error) {
         console.log("Updated Order but not In Order Page")
     }
-    
+
 }
 
 
