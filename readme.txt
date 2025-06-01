@@ -17,4 +17,4 @@ git push --set-upstream origin <branch>
 git push
 
 
-![](preview.png)
+![](/preview.png)
